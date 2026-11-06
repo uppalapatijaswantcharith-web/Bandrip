@@ -204,6 +204,18 @@ export async function init({ prefs, smooth, loader }) {
       const s = Math.min((r.height / window.innerHeight) * H / fit.h, (r.width / window.innerWidth) * Wd / fit.w);
       return { x: cx - s * fit.cx, y: cy - s * fit.cy, z: 0, s, ...extra };
     };
+    // hero: the head leads the landing screen while the BANDRIP wall graffiti stays readable around it.
+    // Landscape: hat-to-bandana spans ~66% of the viewport height. Portrait phones: ~56%, brim may bleed off the sides.
+    const heroPose = (vh, H) => {
+      const vw = window.innerWidth;
+      const portrait = vw / vh < 0.8;
+      const hFrac = portrait ? 0.56 : 0.656;
+      const wFrac = portrait ? 1.52 : 1.0;
+      const top = vh * (portrait ? 0.47 : 0.525) - (vh * hFrac) / 2;
+      const d = dock({ left: (vw * (1 - wFrac)) / 2, width: vw * wFrac, top, height: vh * hFrac }, { ry: 0, rings: 0 });
+      d.y += (window.scrollY / vh) * H * 0.5;   // parallax: rises with the hero
+      return d;
+    };
     const visible = (el) => el && el.offsetParent !== null;
     const place = () => {
       const vh = window.innerHeight;
@@ -220,7 +232,7 @@ export async function init({ prefs, smooth, loader }) {
       }
       if (!out) {
         // hero pose rises with the hero (parallax), then eases into the identity slot
-        const hero = { x: 0, y: -0.1 + (window.scrollY / vh) * H * 0.5, z: 0, ry: 0, s: m ? 0.74 : 0.88, rings: 0 };
+        const hero = heroPose(vh, H);
         if (visible(slotId) && idSec) {
           const t = smooth01(clamp01((vh * 0.95 - idSec.getBoundingClientRect().top) / (vh * 0.8)));
           const d = dock(slotId.getBoundingClientRect(), { ry: m ? 0 : -0.42, rings: 0 });
@@ -316,6 +328,7 @@ export async function init({ prefs, smooth, loader }) {
       const tl = gsap.timeline();
       tl.from('.hero__marquee', { yPercent: -40, autoAlpha: 0, duration: 1.1, ease: 'expo.out' }, 0.05)
         .from('.hero__corner', { yPercent: 60, autoAlpha: 0, duration: 0.9, ease: 'expo.out', stagger: 0.08 }, 0.25)
+        .from('.g--bandrip, .g--bandrip-chalk', { scale: 0.86, autoAlpha: 0, duration: 0.8, ease: 'expo.out', stagger: 0.12 }, 0.35)
         .from('.hero__actions > *', { y: 20, autoAlpha: 0, duration: 0.7, ease: 'expo.out', stagger: 0.08 }, 0.45);
       if (mascot) tl.fromTo(mascot.pose, { enter: 0 }, { enter: 1, duration: 1.8, ease: 'expo.out' }, 0.1);
       else gsap.from('.hero__poster', { yPercent: 12, autoAlpha: 0, duration: 1.4, ease: 'expo.out' });

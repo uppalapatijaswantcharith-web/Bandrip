@@ -15,7 +15,12 @@ html.webgl-ready .stage__canvas { opacity: 1; }
 .marquee__item { font-family: var(--f-display); font-size: clamp(92px, 15.5vw, 290px); line-height: 0.92; letter-spacing: -0.01em; padding-right: 0.25em; text-transform: uppercase; }
 .marquee__item .tag { font-size: clamp(10px, 0.85vw, 14px); position: relative; top: 0.5em; }
 html.no-js .marquee__track, html.reduced-motion .marquee__track { animation: none; }
-.hero__poster { position: absolute; left: 50%; bottom: 0; transform: translateX(-50%); height: 74vh; width: auto; z-index: 3; object-fit: contain; pointer-events: none; transition: opacity 0.6s; filter: drop-shadow(0 30px 40px rgba(60, 10, 5, 0.25)); }
+/* pre-WebGL stand-in, sized to match the 3D hero pose in home.js (head = 68% of the image; keep in sync with heroPose).
+   The img is clipped along the bandana's lower edge to hide the neck stand; the wrapper carries the shadow
+   so the shadow follows the clipped shape. */
+.hero__poster-wrap { position: absolute; inset: 0; z-index: 3; pointer-events: none; filter: drop-shadow(0 30px 40px rgba(60, 10, 5, 0.25)); }
+.hero__poster { position: absolute; left: 50%; top: -2.5vh; transform: translateX(-50%); height: 96vh; width: auto; max-width: none; object-fit: contain; transition: opacity 0.6s;
+  clip-path: polygon(-30% -30%, 130% -30%, 130% 77%, 66.5% 77%, 60% 83.3%, 51.5% 91.6%, 44% 86.6%, 40% 82.4%, 36.5% 79%, -30% 79%); }
 html.webgl-ready .hero__poster { opacity: 0; }
 .hero__micro { position: absolute; top: 56%; z-index: 4; display: flex; flex-direction: column; gap: 1.6em; }
 .hero__micro--l { left: var(--pad); }
@@ -31,7 +36,7 @@ html.webgl-ready .hero__poster { opacity: 0; }
   .marquee__item { font-size: 30vw; }
   .hero__micro { top: 40%; gap: 0.8em; font-size: 9px; }
   .hero__corner { display: none; }
-  .hero__poster { height: 56vh; bottom: 0; }
+  .hero__poster { height: 82vh; top: 0; }
   .hero__actions { bottom: calc(var(--bezel) + var(--tab-h) + 12px); }
 }
 
@@ -203,8 +208,12 @@ html.touch .hero__spray-hint, html.reduced-motion .hero__spray-hint { display: n
 .g--rip { right: 14vw; bottom: 25vh; width: clamp(120px, 11vw, 200px); transform: rotate(8deg); opacity: 0.92; }
 .g--arrow { left: 33vw; bottom: calc(var(--bezel) + 92px); width: clamp(110px, 9vw, 170px); transform: rotate(-12deg); }
 .g--sticker { right: calc(var(--pad) + 40px); top: calc(var(--bezel) + 86px); width: clamp(84px, 7.4vw, 130px); transform: rotate(14deg); filter: drop-shadow(0 6px 8px rgba(0,0,0,0.25)); z-index: 5; }
+/* brand wall: BANDRIP pieces sprayed on the hero wall, behind the skull */
+.g--bandrip { left: 2vw; top: calc(var(--bezel) + 29vh); width: clamp(240px, 25vw, 480px); transform: rotate(-7deg); opacity: 0.96; }
+.g--bandrip-chalk { right: 2.5vw; top: calc(var(--bezel) + 31vh); width: clamp(200px, 22vw, 420px); transform: rotate(5deg); opacity: 0.92; }
+.g--bandrip-ghost { left: 50%; top: 44vh; width: min(92vw, 1500px); transform: translate(-50%, -50%) rotate(-4deg); opacity: 0.1; mix-blend-mode: multiply; filter: grayscale(0.3); }
 .g--tape { left: calc(var(--pad) - 18px); top: calc(56% - 18px); width: 120px; transform: rotate(-9deg); opacity: 0.9; }
-@media (max-width: 760px) { .g--rip, .g--arrow, .g--tape { display: none; } .g--crown { top: 17vh; } .g--sticker { top: calc(var(--bezel) + 120px); right: var(--pad); } }
+@media (max-width: 760px) { .g--rip, .g--arrow, .g--tape, .g--bandrip-chalk { display: none; } .g--bandrip { left: 50%; top: auto; bottom: calc(var(--bezel) + 100px); width: 72vw; transform: translateX(-50%) rotate(-5deg); } .g--bandrip-ghost { top: 30vh; width: 140vw; opacity: 0.1; } .g--crown { top: 17vh; } .g--sticker { top: calc(var(--bezel) + 120px); right: var(--pad); } }
 
 /* brutalist walls: real CC0 brick / concrete with sprayed pieces */
 .wall { background-size: cover; background-position: center; background-repeat: no-repeat; }
