@@ -1,5 +1,5 @@
-// Hero smoke: a small GPU fluid solver (WebGL2). The cursor stirs the rendered haze;
-// holding the pointer sprays signal-red paint into the flow. Written for BANDRIP.
+// Hero smoke: a small GPU fluid solver (WebGL2). The cursor stirs the haze and trails red spray (stronger
+// the faster it moves); holding the pointer sprays dense paint, a click/tap fires a burst. Written for BANDRIP.
 const VERT = `#version 300 es
 precision highp float;
 in vec2 aPos;
@@ -21,7 +21,7 @@ const FRAG = {
       o = vec4(texture(uTarget, vUv).xyz + s, 1.0);
     }`,
   advect: `
-    uniform sampler2D uVel; uniform sampler2D uSrc; uniform vec2 uSimTexel; uniform float uDt; uniform float uDiss;
+    uniform sampler2D uVel; uniform sampler2D uSrc; uniform vec2 uSimTexel; uniform float uDt; uniform vec4 uDiss;
     void main() {
       vec2 c = vUv - uDt * texture(uVel, vUv).xy * uSimTexel;
       o = texture(uSrc, c) / (1.0 + uDiss * uDt);
@@ -73,13 +73,14 @@ const FRAG = {
       bgUv += vel * 0.00045;                                   // the haze itself flows
       vec3 bg = texture(uBg, vec2(bgUv.x, 1.0 - bgUv.y)).rgb;
       vec3 d = texture(uDye, vUv).rgb;
-      float paint = clamp(d.r, 0.0, 1.0);
+      float paint = max(d.r, 0.0);
       float soot = clamp(d.g, 0.0, 1.0);
       float chalk = clamp(d.b, 0.0, 1.0);
       vec3 col = bg;
       col = mix(col, col * vec3(0.55, 0.5, 0.48), soot * 0.75);
       col = mix(col, vec3(0.97, 0.94, 0.9), chalk * 0.55);
-      col = mix(col, vec3(0.90, 0.20, 0.16), smoothstep(0.02, 1.4, paint) * 0.9);
+      col = mix(col, vec3(0.90, 0.20, 0.16), smoothstep(0.01, 0.75, paint) * 0.94);
+      col = mix(col, vec3(0.62, 0.06, 0.05), smoothstep(0.9, 2.6, paint) * 0.55);   // wet, pooled paint
       col += (hash(vUv * 900.0 + uTime) - 0.5) * 0.025;       // film grain
       o = vec4(col, 1.0);
     }`,
@@ -202,8 +203,8 @@ export function createFluid(canvas, { bgUrl, reduced = false, mobile = false } =
       unit = 0; pass(P.pressure, pres.w, (u) => { gl.uniform2f(u.uTexel, ...texel); bind(u.uP, pres.r.tex); bind(u.uDiv, div.tex); }); pres.swap();
     }
     unit = 0; pass(P.grad, vel.w, (u) => { gl.uniform2f(u.uTexel, ...texel); bind(u.uP, pres.r.tex); bind(u.uVel, vel.r.tex); }); vel.swap();
-    unit = 0; pass(P.advect, vel.w, (u) => { bind(u.uVel, vel.r.tex); bind(u.uSrc, vel.r.tex); gl.uniform2f(u.uSimTexel, ...texel); gl.uniform1f(u.uDt, dt); gl.uniform1f(u.uDiss, 0.35); }); vel.swap();
-    unit = 0; pass(P.advect, dye.w, (u) => { bind(u.uVel, vel.r.tex); bind(u.uSrc, dye.r.tex); gl.uniform2f(u.uSimTexel, ...texel); gl.uniform1f(u.uDt, dt); gl.uniform1f(u.uDiss, 0.9); }); dye.swap();
+    unit = 0; pass(P.advect, vel.w, (u) => { bind(u.uVel, vel.r.tex); bind(u.uSrc, vel.r.tex); gl.uniform2f(u.uSimTexel, ...texel); gl.uniform1f(u.uDt, dt); gl.uniform4f(u.uDiss, 0.35, 0.35, 0.35, 0.35); }); vel.swap();
+    unit = 0; pass(P.advect, dye.w, (u) => { bind(u.uVel, vel.r.tex); bind(u.uSrc, dye.r.tex); gl.uniform2f(u.uSimTexel, ...texel); gl.uniform1f(u.uDt, dt); gl.uniform4f(u.uDiss, 0.42, 0.9, 0.9, 0.9); }); dye.swap();
   }
 
   let time = 0;
@@ -216,26 +217,53 @@ export function createFluid(canvas, { bgUrl, reduced = false, mobile = false } =
 
   // input
   const ptr = { x: 0.5, y: 0.5, px: 0.5, py: 0.5, down: false, moved: false };
+  const bursts = [];
   let ambientT = 0;
   function frame(dt) {
     time += dt;
     if (!reduced) {
       if (ptr.moved) {
-        const dx = (ptr.x - ptr.px) * 6000;
-        const dy = (ptr.y - ptr.py) * 6000;
-        splat(ptr.x, ptr.y, dx, dy, ptr.down ? [0.0, 0.0, 0.0] : [0.0, 0.10, 0.05], 0.0016);
+        const mx = ptr.x - ptr.px;
+        const my = ptr.y - ptr.py;
+        const asp = canvas.width / canvas.height;
+        const sp = Math.min(1, Math.hypot(mx * asp, my) * 45);   // 0 = creeping, 1 = fast flick
+        // stir the haze, and lay down red that gets heavier with speed
+        splat(ptr.x, ptr.y, mx * 6000, my * 6000, ptr.down ? [0.0, 0.0, 0.0] : [0.035 + 0.13 * sp, 0.05, 0.02], 0.0016);
+        // spray speckles thrown off the nozzle
+        const n = 1 + Math.round(sp * (mobile ? 2 : 4));
+        for (let i = 0; i < n; i++) {
+          const a = Math.random() * Math.PI * 2;
+          const r = 0.006 + Math.random() * 0.02 * (0.4 + sp);
+          splat(ptr.x + (Math.cos(a) * r) / asp, ptr.y + Math.sin(a) * r, mx * 2500, my * 2500, [0.22 + Math.random() * 0.2, 0.0, 0.0], 0.00006 + Math.random() * 0.00012);
+        }
         ptr.px = ptr.x; ptr.py = ptr.y; ptr.moved = false;
       }
       if (ptr.down) {
-        // spray: dense red paint with a forward puff
+        // held spray: dense red cone with a forward puff and a fine mist around it
+        for (let i = 0; i < (mobile ? 2 : 3); i++) {
+          const a = Math.random() * Math.PI * 2;
+          splat(ptr.x + Math.cos(a) * 0.004, ptr.y + Math.sin(a) * 0.004, Math.cos(a) * 110, Math.sin(a) * 110 + 50, [0.26, 0.0, 0.0], 0.0007);
+        }
         const a = Math.random() * Math.PI * 2;
-        splat(ptr.x + Math.cos(a) * 0.003, ptr.y + Math.sin(a) * 0.003, Math.cos(a) * 90, Math.sin(a) * 90 + 40, [0.16, 0.0, 0.0], 0.00045);
+        const r = 0.012 + Math.random() * 0.03;
+        splat(ptr.x + Math.cos(a) * r, ptr.y + Math.sin(a) * r, 0, 0, [0.3, 0.0, 0.0], 0.00008);
+      }
+      while (bursts.length) {
+        // click / tap: a radial blast of paint
+        const [bx, by] = bursts.pop();
+        splat(bx, by, 0, 0, [0.9, 0.02, 0.0], 0.0022);
+        const k = mobile ? 8 : 12;
+        for (let i = 0; i < k; i++) {
+          const a = (i / k) * Math.PI * 2 + Math.random() * 0.4;
+          const f = 260 + Math.random() * 260;
+          splat(bx + Math.cos(a) * 0.01, by + Math.sin(a) * 0.01, Math.cos(a) * f, Math.sin(a) * f, [0.35, 0.0, 0.0], 0.00035);
+        }
       }
       ambientT -= dt;
       if (ambientT <= 0) {
         ambientT = 0.9 + Math.random() * 1.4;
         const x = 0.15 + Math.random() * 0.7;
-        splat(x, 0.02, (Math.random() - 0.5) * 220, 260 + Math.random() * 260, Math.random() < 0.35 ? [0.16, 0.05, 0.0] : [0.0, 0.08, 0.10], 0.006);
+        splat(x, 0.02, (Math.random() - 0.5) * 220, 260 + Math.random() * 260, Math.random() < 0.55 ? [0.22, 0.04, 0.0] : [0.0, 0.08, 0.10], 0.006);
       }
       step(Math.min(dt, 1 / 30));
     }
@@ -247,6 +275,7 @@ export function createFluid(canvas, { bgUrl, reduced = false, mobile = false } =
     frame,
     pointer(x, y) { ptr.x = x; ptr.y = y; ptr.moved = true; },
     press(v) { ptr.down = v; },
+    burst(x, y) { if (bursts.length < 4) bursts.push([x, y]); },
     resize,
     dispose() { gl.getExtension('WEBGL_lose_context')?.loseContext(); },
   };

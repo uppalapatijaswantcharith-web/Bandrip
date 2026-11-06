@@ -80,6 +80,8 @@ Planning documents: `REFERENCE_ANALYSIS.md`, `ART_DIRECTION.md`, `ANTI_GENERIC_D
 
 ## Rebuilding generated assets (optional)
 
+Phones load `static/models/mascot-m.glb` and `crew-m.glb` (textures capped at 1024px). After re-exporting either model, regenerate them with `python tools/mobile_glb.py static/models/mascot.glb static/models/crew.glb` (needs Pillow).
+
 Everything needed to run is already in `static/`. To regenerate (Blender 5.2 at its default Windows path):
 
 ```bash

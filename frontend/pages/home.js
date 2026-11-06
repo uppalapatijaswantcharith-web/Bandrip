@@ -41,7 +41,7 @@ export async function init({ prefs, smooth, loader }) {
     }
   }
 
-  // --- hero smoke: GPU fluid stirred by the cursor; holding the mouse sprays red paint into it
+  // --- hero smoke: GPU fluid; the cursor trails red spray, holding sprays dense paint, click/tap fires a burst
   const fluidCanvas = document.querySelector('[data-fluid]');
   const hero = document.querySelector('.hero');
   if (prefs.webgl && fluidCanvas && !prefs.reduced) {
@@ -59,7 +59,13 @@ export async function init({ prefs, smooth, loader }) {
         cleanups.push(() => { gsap.ticker.remove(fTick); fluid.dispose(); });
         const pos = (e) => { const r = fluidCanvas.getBoundingClientRect(); fluid.pointer((e.clientX - r.left) / r.width, 1 - (e.clientY - r.top) / r.height); };
         hero.addEventListener('pointermove', pos);
-        hero.addEventListener('pointerdown', (e) => { if (e.target.closest('a, button')) return; pos(e); fluid.press(true); hero.classList.add('is-spraying'); });
+        hero.addEventListener('pointerdown', (e) => {
+          if (e.target.closest('a, button')) return;
+          pos(e);
+          const r = fluidCanvas.getBoundingClientRect();
+          fluid.burst((e.clientX - r.left) / r.width, 1 - (e.clientY - r.top) / r.height);
+          fluid.press(true); hero.classList.add('is-spraying');
+        });
         window.addEventListener('pointerup', () => { fluid.press(false); hero.classList.remove('is-spraying'); });
         new ResizeObserver(() => fluid.resize()).observe(fluidCanvas);
       }

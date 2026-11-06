@@ -120,6 +120,7 @@ html.no-js .frame { box-shadow: inset 0 0 0 var(--bezel) var(--ink); }
 html.menu-open .frame__menu-open { display: none; }
 html.menu-open .frame__menu-close { display: inline; }
 html.menu-open .frame__brand, html.menu-open .frame__menu { color: var(--chalk); }
+html.menu-open .frame { z-index: 65; } /* keep CLOSE above the open menu */
 @media (max-width: 760px) { .frame__drop, .frame__tick { display: none; } }
 
 /* ---------------------------------------------------------------- gate: spray the tag to enter */
