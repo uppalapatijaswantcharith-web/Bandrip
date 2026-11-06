@@ -1,0 +1,17 @@
+<div class="frame" aria-hidden="false">
+  <svg class="frame__shape" aria-hidden="true" focusable="false"><path class="frame__path" d=""></path></svg>
+  <div class="frame__tab frame__tab--top"><span class="mono" data-frame-label>{{ section_label|default:'BANDRIP' }}</span></div>
+  <div class="frame__tab frame__tab--bottom" aria-hidden="true"><span class="mono" data-frame-coords>X.0000 // Y.0000</span></div>
+  <span class="frame__tick frame__tick--l" aria-hidden="true"></span>
+  <span class="frame__tick frame__tick--r" aria-hidden="true"></span>
+  <header class="frame__bar">
+    <a class="frame__brand" href="{% url 'home' %}" aria-label="BANDRIP home">
+      {% include 'partials/wordmark.html' %}
+      <span class="frame__pulse mono" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
+      <span class="mono frame__drop" aria-hidden="true">DROP_01</span>
+    </a>
+    <button class="frame__menu mono" type="button" aria-expanded="false" aria-controls="menu">
+      <span class="frame__menu-open">MENU</span><span class="frame__menu-close">CLOSE</span>
+    </button>
+  </header>
+</div>

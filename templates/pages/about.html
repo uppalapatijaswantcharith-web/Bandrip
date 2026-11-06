@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<section class="split-hero chapter" data-label="ABOUT" data-field="#E63228" aria-labelledby="about-h">
+  <figure class="split-hero__img">{% include 'partials/img.html' with p=hero sizes='(max-width: 760px) 100vw, 50vw' eager=True %}</figure>
+  <div class="split-hero__panel">
+    <p class="mono kicker"><span aria-hidden="true">+++</span> ABOUT BANDRIP</p>
+    <h1 id="about-h" class="display split-hero__title"><span data-decode>STREET</span><span data-decode>UNIFORM,</span><span data-decode>STUDIO MADE.</span></h1>
+    <p>BANDRIP is a unisex streetwear label and a modelling studio under one roof. The label makes oversized everyday pieces; the studio casts and trains the people who wear them in shoots and shows.</p>
+    <p class="mono dim">COPY IS A DRAFT FOR CLIENT REVIEW.</p>
+    <img class="slap" src="{% static 'img/graffiti/sticker_hello.webp' %}" alt="" aria-hidden="true">
+  </div>
+</section>
+
+<section class="statements chapter wall wall--concrete" data-label="ABOUT // PRINCIPLES" data-field="#F2F0E9" aria-label="What BANDRIP stands for">
+  <article class="statement">
+    <h2 class="display statement__title" data-decode>CUT FOR THE STREET</h2>
+    <p>Every piece starts from how it will be worn outside: room to move, fabric that holds its shape, proportions that stack. Tees are boxy, cargos are wide, shirts are long.</p>
+  </article>
+  <article class="statement">
+    <h2 class="display statement__title" data-decode>BUILT IN THE STUDIO</h2>
+    <p>The studio is part of the brand, not a service on the side. Fits are tested on studio models, and the lookbooks are shot by the same team that styles them.</p>
+  </article>
+  <article class="statement">
+    <h2 class="display statement__title" data-decode>WORN BY YOU</h2>
+    <p>The clothes are unisex and the casting is open. BANDRIP wants its images to look like the people who actually wear it.</p>
+  </article>
+</section>
+
+<section class="band chapter" data-label="ABOUT // IN THE CLOTHES" data-field="#2A2927" aria-label="Photographs">
+  {% for p in band %}<figure class="band__img band__img--{{ forloop.counter }}" data-reveal="{% cycle 'up' 'down' 'up' %}">{% include 'partials/img.html' with p=p sizes='(max-width: 760px) 100vw, 33vw' %}</figure>{% endfor %}
+</section>
+
+<section class="facts chapter" data-label="ABOUT // FACTS" data-field="#F2F0E9" aria-labelledby="facts-h">
+  <h2 id="facts-h" class="display facts__title">THE FACTS</h2>
+  <p class="mono dim">ALL VALUES ARE PLACEHOLDERS UNTIL CONFIRMED BY BANDRIP.</p>
+  <dl class="facts__table">
+    <div><dt class="mono">FOUNDED</dt><dd>To be confirmed</dd></div>
+    <div><dt class="mono">BASE</dt><dd>To be confirmed</dd></div>
+    <div><dt class="mono">LABEL</dt><dd>Unisex streetwear: oversized tees, shirts, outerwear, pants and cargos, caps, sunglasses, bandanas</dd></div>
+    <div><dt class="mono">STUDIO</dt><dd>Casting, training and shoots for BANDRIP models</dd></div>
+    <div><dt class="mono">CONTACT</dt><dd><a href="{% url 'stores' %}">Stores &amp; contact page</a></dd></div>
+  </dl>
+</section>
+
+<section class="credits chapter" id="credits" data-label="ABOUT // CREDITS" data-field="#151515" aria-labelledby="credits-h">
+  <h2 id="credits-h" class="display credits__title">CREDITS</h2>
+  <h3 class="mono">3D MODELS, MATERIALS &amp; FONTS</h3>
+  <table class="credits__table">
+    <thead><tr><th scope="col" class="mono">ASSET</th><th scope="col" class="mono">AUTHOR</th><th scope="col" class="mono">LICENCE</th><th scope="col" class="mono">CHANGES</th></tr></thead>
+    <tbody>
+      {% for a in asset_credits %}<tr><td><a href="{{ a.url }}" rel="noopener">{{ a.what }}</a></td><td>{{ a.author }}</td><td class="mono">{{ a.licence }}</td><td>{{ a.changes }}</td></tr>{% endfor %}
+    </tbody>
+  </table>
+  <h3 class="mono" style="margin-top: 4vh;">PHOTOGRAPHY</h3>
+  <p>All photographs on this prototype are temporary stock images from <a href="https://www.pexels.com/license/" rel="noopener">Pexels</a> (Pexels License). They do not show BANDRIP products or models. The mascot skull, depot garments, spray can and runway mannequins were modelled for this prototype; the hat, bandana, hoodie, skater and crew models are client-supplied CC BY 4.0 assets listed above.</p>
+  <table class="credits__table">
+    <thead><tr><th scope="col" class="mono">PHOTOGRAPHER</th><th scope="col" class="mono">IMAGE</th><th scope="col" class="mono">SOURCE</th><th scope="col" class="mono">CREDIT CHECK</th></tr></thead>
+    <tbody>
+      {% for p in credits %}
+        <tr><td>{{ p.credit }}</td><td>{{ p.alt }}</td><td><a class="mono" href="{{ p.source }}" rel="noopener">PEXELS #{{ p.id }}</a></td><td class="mono">{% if p.credit_verified %}PAGE{% else %}LISTING — RECHECK{% endif %}</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</section>
+{% endblock %}

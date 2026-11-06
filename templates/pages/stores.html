@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<section class="stores-hero chapter" data-label="STORES" data-field="#151515" aria-labelledby="stores-h">
+  <figure class="stores-hero__img">{% include 'partials/img.html' with p=hero sizes='100vw' eager=True alt='' %}</figure>
+  <div class="stores-hero__text">
+    <p class="mono kicker"><i class="sq"></i> STORES · STUDIO · CONTACT</p>
+    <h1 id="stores-h" class="display stores-hero__title"><span data-decode>FIND</span><span data-decode>BANDRIP</span></h1>
+  </div>
+  <img class="stores-hero__tag" src="{% static 'img/graffiti/stencil_skull_red.webp' %}" alt="" aria-hidden="true">
+</section>
+
+<section class="directory chapter wall wall--concrete" data-label="STORES // DIRECTORY" data-field="#F2F0E9" aria-labelledby="dir-h">
+  <div class="directory__head">
+    <h2 id="dir-h" class="display directory__title">STORES</h2>
+    <p class="mono dim">PLACEHOLDER LOCATIONS — ADDRESSES, HOURS AND STOCKISTS TO BE CONFIRMED BY BANDRIP.</p>
+  </div>
+  <ol class="directory__list">
+    {% for s in stores %}
+      <li class="store">
+        <span class="mono store__num">{{ forloop.counter|stringformat:"02d" }}</span>
+        <h3 class="display store__city">{{ s.city }}</h3>
+        <p class="store__name">{{ s.name }}</p>
+        <p class="store__addr">{{ s.address }}</p>
+        <p class="mono store__hours">{{ s.hours }}</p>
+        <p class="mono dim store__note">{{ s.note }}</p>
+      </li>
+    {% endfor %}
+  </ol>
+</section>
+
+<section class="contact chapter" id="contact" data-label="STORES // CONTACT" data-field="#E63228" aria-labelledby="contact-h">
+  <div class="contact__head">
+    <h2 id="contact-h" class="display contact__title"><span data-decode>GET IN</span><span data-decode>TOUCH</span></h2>
+    <dl class="contact__direct mono">
+      <div><dt class="dim">EMAIL</dt><dd>hello@bandrip.example <span class="dim">(placeholder)</span></dd></div>
+      <div><dt class="dim">STUDIO</dt><dd>studio@bandrip.example <span class="dim">(placeholder)</span></dd></div>
+      <div><dt class="dim">SOCIAL</dt><dd>Handles to be confirmed</dd></div>
+    </dl>
+    <p class="apply__proto mono"><b>PROTOTYPE FORM</b> · Checked, then discarded. Nothing is sent.</p>
+  </div>
+  {% if sent %}
+    <div class="apply__success" tabindex="-1"><p class="mono">PROTOTYPE SUCCESS STATE</p><h3 class="display">MESSAGE CHECKED.</h3><p><b>Nothing was sent to BANDRIP.</b> This form is a prototype.</p></div>
+  {% endif %}
+  <form class="form" method="post" action="{% url 'stores' %}#contact" novalidate data-contact-form{% if sent %} hidden{% endif %}>
+    {% csrf_token %}
+    <div class="form__summary" role="alert" data-form-summary{% if not form.errors %} hidden{% endif %}>{% if form.errors %}Please fix the highlighted fields.{% endif %}</div>
+    <div class="form__grid">
+      {% for field in form %}
+        <div class="field field--{{ field.name }}{% if field.errors %} has-error{% endif %}" data-field-wrap="{{ field.name }}">
+          <label class="mono" for="{{ field.id_for_label }}">{{ field.label }} *</label>
+          {{ field }}
+          <p class="field__err mono" id="{{ field.id_for_label }}-err" data-err-for="{{ field.name }}">{{ field.errors|join:' ' }}</p>
+        </div>
+      {% endfor %}
+    </div>
+    <button class="capsule" type="submit"><span>SEND MESSAGE (DEMO)</span><i aria-hidden="true">›››</i></button>
+  </form>
+  <div class="apply__success" data-contact-success hidden tabindex="-1"><p class="mono">PROTOTYPE SUCCESS STATE</p><h3 class="display">MESSAGE CHECKED.</h3><p><b>Nothing was sent to BANDRIP.</b> This form is a prototype and will be connected after launch details are confirmed.</p></div>
+</section>
+{% endblock %}

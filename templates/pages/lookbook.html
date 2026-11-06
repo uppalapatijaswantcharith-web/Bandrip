@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<section class="lb-head chapter" data-label="LOOKBOOK" data-field="#F2F0E9" aria-labelledby="lb-h">
+  <p class="mono kicker"><i class="sq"></i> DROP_01 · 3 LOOKS</p>
+  <h1 id="lb-h" class="display lb-head__title"><span data-decode>LOOKBOOK</span><span data-decode>&amp; COMMUNITY</span></h1>
+  <img class="slap slap--lb" src="{% static 'img/graffiti/sticker_round.webp' %}" alt="" aria-hidden="true">
+  <img class="lb-head__tag" src="{% static 'img/graffiti/tag_street_ink.webp' %}" alt="" aria-hidden="true">
+  <p class="lb-head__lede">Three looks from the first drop, styled by the studio. Below them, a wall for the people who wear BANDRIP. All images are temporary placeholders.</p>
+</section>
+
+{% for look in looks %}
+<article class="look chapter{% if forloop.counter|divisibleby:2 %} look--flip{% endif %}" data-label="LOOKBOOK // {{ look.num }}" data-field="{{ look.field }}" style="--look-field: {{ look.field }}; --look-ink: {{ look.ink }};" aria-labelledby="look-{{ forloop.counter }}">
+  <figure class="look__img" data-reveal="{% if forloop.counter|divisibleby:2 %}left{% else %}right{% endif %}">{% include 'partials/img.html' with p=look.photo_obj sizes='(max-width: 760px) 100vw, 55vw' %}</figure>
+  <div class="look__panel">
+    <p class="mono">{{ look.num }}</p>
+    <h2 id="look-{{ forloop.counter }}" class="display look__title" data-decode>{{ look.title }}</h2>
+    <p class="look__story">{{ look.story }}</p>
+    <div class="look__cols">
+      <div><p class="mono dim">PIECES (DEMO)</p><ul>{% for piece in look.pieces %}<li>{{ piece }}</li>{% endfor %}</ul></div>
+      <div><p class="mono dim">CREDITS</p><ul class="mono"><li>PHOTO: {{ look.photo_obj.credit }} / PEXELS</li><li>STYLING: BANDRIP STUDIO (PLACEHOLDER)</li><li>MODEL: STOCK — NOT A BANDRIP MODEL</li></ul></div>
+    </div>
+    <a class="capsule{% if look.ink == '#F2F0E9' %} capsule--chalk{% endif %}" href="{% url 'collections' %}"><span>SHOP THE PIECES</span><i aria-hidden="true">›››</i></a>
+  </div>
+</article>
+{% endfor %}
+
+<section class="community chapter wall wall--concrete" data-label="COMMUNITY" data-field="#F2F0E9" aria-labelledby="community-h">
+  <div class="community__head">
+    <h2 id="community-h" class="display community__title" data-decode>THE WALL</h2>
+    <p>Fits from the street, collected by the studio. Submission process and handle to be confirmed by BANDRIP before launch.</p>
+  </div>
+  <ul class="community__grid">
+    {% for p in community %}
+      <li class="{% cycle 'taped' 'plain' 'taped tilt' 'plain' 'tilt' 'taped' %}"><figure>{% include 'partials/img.html' with p=p sizes='(max-width: 760px) 50vw, 33vw' %}<figcaption class="mono"><span>FIT_{{ forloop.counter|stringformat:"02d" }}</span><span class="dim">{{ p.credit }} / PEXELS</span></figcaption></figure></li>
+    {% endfor %}
+  </ul>
+</section>
+{% endblock %}

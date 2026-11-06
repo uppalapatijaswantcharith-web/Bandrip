@@ -1,0 +1,8 @@
+node_modules/
+__pycache__/
+*.pyc
+staticfiles/
+assets_src/**/baked/
+assets_src/**/preview_*.png
+tools/scratch/
+verify-output/

@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<section class="runway chapter" data-label="STUDIO // RUNWAY" data-field="#0E0D0C" aria-labelledby="runway-h">
+  <canvas class="runway__canvas" data-runway-canvas aria-hidden="true"></canvas>
+  <div class="runway__fallback" aria-hidden="true">
+    {% for p in portfolio|slice:":5" %}<figure class="runway__fb runway__fb--{{ forloop.counter }}"><img src="{% static p.photo.src.800 %}" alt="" loading="lazy" decoding="async"></figure>{% endfor %}
+  </div>
+  <div class="runway__ui">
+    <p class="mono kicker runway__kicker"><span class="runway__badge">BANDRIP | STUDIO</span> 01 · OPEN CASTING · AN ONGOING SHOW</p>
+    <h1 id="runway-h" class="runway__title display"><span>BANDRIP</span><span>STUDIO</span></h1>
+    <p class="runway__lede">BANDRIP hires and trains models, then puts them in the clothes. The runway below is a live preview of how the studio works.</p>
+    <div class="runway__controls mono" role="group" aria-label="Runway controls">
+      <span class="dim">VIEW</span>
+      <button type="button" data-view="front" aria-pressed="true">FRONT</button>
+      <button type="button" data-view="side" aria-pressed="false">SIDE</button>
+      <button type="button" data-view="free" aria-pressed="false">FREE</button>
+      <span class="sep" aria-hidden="true"></span>
+      <button type="button" data-lights>LIGHTS <b data-lights-name>01</b></button>
+      <button type="button" data-pause aria-pressed="false">PAUSE</button>
+    </div>
+    <p class="runway__note mono">FIGURES ARE STYLISED 3D MANNEQUINS · PROTOTYPE</p>
+    <a class="runway__down mono u-link" href="#studio">ABOUT THE STUDIO ↓</a>
+  </div>
+</section>
+
+<section class="studio-intro chapter" id="studio" data-label="STUDIO // INTRO" data-field="#F2F0E9" aria-labelledby="studio-h">
+  <p class="mono kicker"><span aria-hidden="true">+++</span> 01 / THE STUDIO</p>
+  <h2 id="studio-h" class="display studio-intro__title" data-decode-block><span>WE CAST, TRAIN</span><span>AND SHOOT MODELS</span><span>FOR STREETWEAR.</span></h2>
+  <div class="studio-intro__grid">
+    <p class="studio-intro__copy">The studio is where BANDRIP's clothes meet the people who wear them. New faces are cast, coached on walk and pose, styled in the collection and photographed for the label's lookbooks and shows. Experience is not required to apply.</p>
+    {% for p in intro_photos %}
+      <figure class="studio-intro__img studio-intro__img--{{ forloop.counter }}" data-reveal="{% cycle 'up' 'left' 'down' %}">{% include 'partials/img.html' with p=p sizes='(max-width: 760px) 70vw, 24vw' %}</figure>
+    {% endfor %}
+  </div>
+</section>
+
+<section class="styling chapter" data-label="STUDIO // STYLING" data-field="#E63228" aria-labelledby="styling-h">
+  <div class="styling__text">
+    <p class="mono kicker"><span aria-hidden="true">+++</span> 02 / STYLING</p>
+    <h2 id="styling-h" class="display styling__title"><span data-decode>WEAR IT</span> <span data-decode>YOUR WAY</span></h2>
+    <p>Oversized pieces change with the person inside them. Models learn how to stack cargos over sneakers, how a drop shoulder sits, how to wear a bandana as a mask, a headband or a neck tie, and how to bring their own references into a look.</p>
+    <ul class="spec mono"><li>FIT · LAYER · PROPORTION</li><li>COLOUR · ACCESSORIES · ATTITUDE</li></ul>
+  </div>
+  <figure class="styling__img" data-reveal="right">{% include 'partials/img.html' with p=portfolio.7.photo sizes='(max-width: 760px) 100vw, 42vw' %}</figure>
+</section>
+
+<section class="tracks chapter" data-label="STUDIO // TRAINING" data-field="#2A2927" aria-labelledby="tracks-h">
+  <p class="mono kicker"><span aria-hidden="true">+++</span> 03 / RECRUITMENT &amp; TRAINING</p>
+  <h2 id="tracks-h" class="display tracks__title" data-decode>HOW IT WORKS</h2>
+  <ol class="tracks__list">
+    {% for t in tracks %}
+      <li class="track"><p class="display track__num">{{ t.num }}</p><h3 class="display track__title">{{ t.title }}</h3><p>{{ t.text }}</p></li>
+    {% endfor %}
+  </ol>
+  <aside class="confirm" aria-labelledby="confirm-h">
+    <p id="confirm-h" class="mono"><b>PLACEHOLDER — CONFIRM WITH BANDRIP BEFORE LAUNCH</b></p>
+    <ul class="mono">
+      <li>Training schedule, location and duration</li>
+      <li>Any fees, pay rates or contracts</li>
+      <li>Age, consent and safeguarding policy</li>
+      <li>How images of models are used and credited</li>
+    </ul>
+    <p class="mono dim">No placements, earnings or bookings are promised by this page.</p>
+  </aside>
+</section>
+
+<section class="portfolio chapter" data-label="STUDIO // PORTFOLIO" data-field="#F2F0E9" aria-labelledby="portfolio-h">
+  <div class="portfolio__head">
+    <h2 id="portfolio-h" class="display portfolio__title">PORTFOLIO</h2>
+    <div class="portfolio__filters mono" role="group" aria-label="Filter looks">
+      <button type="button" data-filter="all" aria-pressed="true">ALL</button>
+      <button type="button" data-filter="Editorial" aria-pressed="false">EDITORIAL</button>
+      <button type="button" data-filter="Studio" aria-pressed="false">STUDIO</button>
+      <button type="button" data-filter="Street" aria-pressed="false">STREET</button>
+      <button type="button" data-filter="Movement" aria-pressed="false">MOVEMENT</button>
+      <button type="button" data-filter="Campaign" aria-pressed="false">CAMPAIGN</button>
+    </div>
+  </div>
+  <ul class="portfolio__grid" data-portfolio>
+    {% for p in portfolio %}
+      <li class="pf pf--{{ forloop.counter }}" data-tag="{{ p.tag }}">
+        <figure>{% include 'partials/img.html' with p=p.photo sizes='(max-width: 760px) 50vw, 25vw' %}
+          <figcaption class="mono"><span>{{ p.name }} · {{ p.tag|upper }}</span><span class="dim">{{ p.photo.credit }} / PEXELS</span></figcaption>
+        </figure>
+      </li>
+    {% endfor %}
+  </ul>
+  <p class="mono dim portfolio__note">Temporary stock photography. These are not BANDRIP models.</p>
+</section>
+
+<section class="apply chapter" id="apply" data-label="STUDIO // APPLY" data-field="#151515" aria-labelledby="apply-h">
+  <div class="apply__head">
+    <p class="mono kicker"><span aria-hidden="true">+++</span> 04 / OPEN CASTING</p>
+    <h2 id="apply-h" class="display apply__title"><span data-decode>BECOME A</span> <span data-decode>BANDRIP MODEL</span></h2>
+    <p>Tell the studio who you are. You will hear back about the next casting day.</p>
+    <p class="apply__proto mono"><b>PROTOTYPE FORM</b> · Input is checked in your browser and on the server, then discarded. Nothing is stored or sent to BANDRIP.</p>
+  </div>
+  <form class="form" method="post" action="{% url 'model_apply' %}" novalidate data-apply-form>
+    {% csrf_token %}
+    <div class="form__summary" role="alert" aria-live="assertive" data-form-summary{% if not form.errors %} hidden{% endif %}>
+      {% if form.errors %}Please fix the highlighted fields.{% endif %}
+    </div>
+    <div class="form__grid">
+      {% for field in form %}
+        <div class="field field--{{ field.name }}{% if field.errors %} has-error{% endif %}{% if field.field.widget.input_type == 'checkbox' %} field--check{% endif %}" data-field-wrap="{{ field.name }}">
+          {% if field.field.widget.input_type == 'checkbox' %}
+            {{ field }}<label for="{{ field.id_for_label }}">{{ field.label }}</label>
+          {% else %}
+            <label class="mono" for="{{ field.id_for_label }}">{{ field.label }}{% if field.field.required %}<span aria-hidden="true"> *</span>{% endif %}</label>
+            {{ field }}
+          {% endif %}
+          <p class="field__err mono" id="{{ field.id_for_label }}-err" data-err-for="{{ field.name }}">{{ field.errors|join:' ' }}</p>
+        </div>
+      {% endfor %}
+    </div>
+    <button class="capsule capsule--chalk form__submit" type="submit"><span>SEND APPLICATION (DEMO)</span><i aria-hidden="true">›››</i></button>
+  </form>
+  <div class="apply__success" data-apply-success hidden tabindex="-1">
+    <p class="mono">PROTOTYPE SUCCESS STATE</p>
+    <h3 class="display">THANKS, <span data-success-name></span>.</h3>
+    <p>Your answers passed validation. <b>This is a prototype: nothing was sent to BANDRIP</b> and nothing was saved. When the live form is connected, this message will confirm what happens next.</p>
+    <button type="button" class="u-link mono" data-apply-reset>FILL IN AGAIN</button>
+  </div>
+</section>
+{% endblock %}

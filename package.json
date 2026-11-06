@@ -1,0 +1,25 @@
+{
+  "name": "bandrip-prototype",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "verify": "node tools/verify.mjs"
+  },
+  "dependencies": {
+    "@fontsource/anton": "^5.1.0",
+    "@fontsource/permanent-marker": "^5.1.0",
+    "@fontsource/saira-stencil-one": "^5.1.0",
+    "@fontsource/space-grotesk": "^5.1.0",
+    "@fontsource/space-mono": "^5.1.0",
+    "gsap": "^3.12.5",
+    "lenis": "^1.1.18",
+    "three": "^0.170.0"
+  },
+  "devDependencies": {
+    "playwright": "^1.49.1",
+    "vite": "^5.4.11"
+  }
+}

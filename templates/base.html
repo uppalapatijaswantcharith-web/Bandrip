@@ -1,0 +1,43 @@
+{% load static vite %}<!doctype html>
+<html lang="en" class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>{% if title %}{{ title }} · {% endif %}BANDRIP — street uniform and modelling studio</title>
+  <meta name="description" content="BANDRIP prototype: unisex streetwear and a modelling studio. Client presentation build with placeholder content.">
+  <meta name="theme-color" content="#151515">
+  <meta name="static-root" content="{% static '' %}">
+  <link rel="icon" href="{% static 'img/favicon.svg' %}" type="image/svg+xml">
+  <script>
+    // Runs before paint: JS flag, motion preference, first-visit gate.
+    (function () {
+      var d = document.documentElement;
+      d.classList.remove('no-js'); d.classList.add('js');
+      try {
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) d.classList.add('reduced-motion');
+        if (!sessionStorage.getItem('bandrip-entered') && !/[?&]nogate\b/.test(location.search)) d.classList.add('gate-on');
+        else if (sessionStorage.getItem('bandrip-transition')) d.classList.add('arriving');
+      } catch (e) {}
+    })();
+  </script>
+  {% vite_entry 'frontend/main.js' %}
+  {% block head %}{% endblock %}
+</head>
+<body data-page="{{ page|default:'simple' }}">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  {% include 'partials/gate.html' %}
+  {% include 'partials/frame.html' %}
+  {% include 'partials/menu.html' %}
+
+  <main id="main" tabindex="-1">
+    {% block content %}{% endblock %}
+  </main>
+
+  {% block footer %}{% include 'partials/footer.html' %}{% endblock %}
+
+  <div class="mosaic" aria-hidden="true"></div>
+  <div class="grain" aria-hidden="true"></div>
+  <p class="sr-only" aria-live="polite" id="live-region"></p>
+</body>
+</html>

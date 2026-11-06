@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="apply chapter" data-label="STUDIO // APPLY" data-field="#151515" style="min-height: 100vh;">
+  <div class="apply__success" style="grid-column: 1 / -1; max-width: 760px;">
+    <p class="mono">PROTOTYPE SUCCESS STATE</p>
+    <h1 class="display">THANKS, {{ name|upper }}.</h1>
+    <p>Your answers passed validation. <b>This is a prototype: nothing was sent to BANDRIP</b> and nothing was saved.</p>
+    <a class="u-link mono" href="{% url 'models' %}#apply">← BACK TO THE STUDIO</a>
+  </div>
+</section>
+{% endblock %}

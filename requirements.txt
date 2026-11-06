@@ -1,0 +1,6 @@
+# Runtime
+Django>=5.2,<5.3
+# Asset pipelines only (not needed to run the site)
+numpy>=2.0
+scikit-image>=0.24
+Pillow>=10.0

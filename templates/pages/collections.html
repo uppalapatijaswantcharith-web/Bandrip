@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<section class="depot chapter{% if active %} has-active{% endif %}" data-label="{{ section_label }}" data-field="#2A2725" aria-labelledby="depot-title" data-depot{% if active %} data-active="{{ active.slug }}"{% endif %}>
+  <div class="depot__stage" aria-hidden="true">
+    <canvas class="depot__canvas" data-depot-canvas></canvas>
+    <div class="depot__fallback">
+      {% for cat in categories %}<figure class="depot__fb-item"><img src="{% static cat.cover.src.800 %}" alt="" loading="lazy" decoding="async"><figcaption class="mono">{{ cat.num }}</figcaption></figure>{% endfor %}
+    </div>
+  </div>
+  <div class="depot__wash" data-depot-wash aria-hidden="true"></div>
+
+  <header class="depot__head">
+    <p class="mono kicker"><i class="sq"></i> BANDRIP // DEPOT · DROP_01</p>
+    <h1 id="depot-title" class="display depot__title"><span data-decode>THE</span> <span data-decode>DEPOT</span></h1>
+    <p class="depot__hint mono"><span class="hide-touch">HOVER AN OBJECT · CLICK TO ENTER</span><span class="show-touch">TAP AN OBJECT TO ENTER</span> · OR PICK FROM THE LIST</p>
+  </header>
+
+  <nav class="depot__list" aria-label="Collection categories">
+    <ol>
+      {% for cat in categories %}
+        <li><a href="{% url 'category' cat.slug %}" data-local data-cat="{{ cat.slug }}"{% if active.slug == cat.slug %} aria-current="page"{% endif %}><span class="mono">{{ cat.num }}</span><span class="depot__list-name">{{ cat.name }}</span><span class="mono depot__list-count">{{ cat.items|length }}</span></a></li>
+      {% endfor %}
+    </ol>
+  </nav>
+
+  <div class="depot__label" data-depot-label aria-hidden="true"><span class="mono" data-depot-label-num>01</span><span class="display" data-depot-label-name>TEES</span><span class="mono">ENTER →</span></div>
+  <p class="depot__note mono">PROTOTYPE · 3D OBJECTS AND PHOTOS ARE PLACEHOLDERS, NOT CONFIRMED INVENTORY</p>
+</section>
+
+<div class="galleries" data-galleries>
+  {% for cat in categories %}
+  <section class="gallery" id="cat-{{ cat.slug }}" data-gallery="{{ cat.slug }}" data-num="{{ cat.num }}" data-name="{{ cat.name }}" style="--g-field: {{ cat.field }}; --g-ink: {{ cat.ink }};" aria-labelledby="g-title-{{ cat.slug }}"{% if not active or active.slug != cat.slug %} hidden{% endif %}>
+    <div class="gallery__bar">
+      <a class="gallery__back mono" href="{% url 'collections' %}" data-local data-back>← BACK TO DEPOT</a>
+      <span class="mono">{{ cat.num }} / 07</span>
+    </div>
+    <header class="gallery__head">
+      <p class="display gallery__num" aria-hidden="true">.{{ cat.num }}</p>
+      <h2 id="g-title-{{ cat.slug }}" class="display gallery__title">{{ cat.name }}</h2>
+      <div class="gallery__intro">
+        <p>{{ cat.line }}</p>
+        <ul class="spec mono">{% for s in cat.spec %}<li>{{ s }}</li>{% endfor %}</ul>
+        <p class="mono dim">{{ cat.items|length }} LOOKS · DEMO PIECES — NAMES AND SPECS TO BE CONFIRMED</p>
+      </div>
+    </header>
+    <ul class="gallery__grid">
+      {% for it in cat.items %}
+        <li class="g-item g-item--{{ it.span }}">
+          <button type="button" class="g-item__btn" data-detail data-src="{% static it.photo.src.1600 %}" data-alt="{{ it.photo.alt }}" data-name="{{ it.name }}" data-code="{{ it.code }}" data-credit="{{ it.photo.credit }}" data-source="{{ it.photo.source }}">
+            {% include 'partials/img.html' with p=it.photo sizes='(max-width: 760px) 100vw, 40vw' alt=it.photo.alt %}
+            <span class="sr-only">Open larger view: {{ it.name }}</span>
+          </button>
+          <div class="g-item__cap">
+            <span class="g-item__name">{{ it.name }}</span>
+            <span class="mono">{{ it.code }}</span>
+          </div>
+          <p class="g-item__meta mono"><span>DEMO PIECE</span><span class="dim">PHOTO: {{ it.photo.credit }} / PEXELS</span></p>
+        </li>
+      {% endfor %}
+    </ul>
+    <nav class="gallery__next mono" aria-label="More categories">
+      {% for other in categories %}{% if other.slug != cat.slug %}<a href="{% url 'category' other.slug %}" data-local data-cat="{{ other.slug }}">{{ other.num }} {{ other.short }}</a>{% endif %}{% endfor %}
+    </nav>
+  </section>
+  {% endfor %}
+</div>
+
+<dialog class="detail" data-detail-dialog aria-labelledby="detail-name">
+  <div class="detail__inner">
+    <figure class="detail__fig"><img data-detail-img src="" alt=""></figure>
+    <div class="detail__side">
+      <p class="mono" data-detail-code></p>
+      <h3 id="detail-name" class="display detail__name" data-detail-name></h3>
+      <p>Demo piece shown on a temporary photograph. Fabric, sizing and price will come from BANDRIP's product data.</p>
+      <ul class="spec mono" data-detail-spec></ul>
+      <p class="mono dim">PHOTO: <a data-detail-credit href="#" target="_blank" rel="noopener"></a> — PEXELS LICENSE</p>
+      <div class="detail__nav">
+        <button type="button" class="mono" data-detail-prev>← PREV</button>
+        <button type="button" class="mono" data-detail-next>NEXT →</button>
+        <button type="button" class="mono detail__close" data-detail-close>CLOSE ✕</button>
+      </div>
+    </div>
+  </div>
+</dialog>
+{% endblock %}

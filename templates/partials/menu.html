@@ -1,0 +1,20 @@
+{% load static %}<div class="menu" id="menu" role="dialog" aria-modal="true" aria-label="Site menu" hidden>
+  <div class="menu__figures" aria-hidden="true">
+    {% for p in menu_figures %}
+      <img class="menu__figure menu__figure--{{ forloop.counter }}" src="{% static p.src.800 %}" alt="" width="{{ p.width }}" height="{{ p.height }}" loading="lazy" decoding="async">
+    {% endfor %}
+  </div>
+  <nav class="menu__nav" aria-label="Primary">
+    <ol>
+      {% for item in nav %}
+        <li><a href="{{ item.url }}"{% if item.active %} aria-current="page"{% endif %}><span class="mono menu__num">{{ item.num }}.</span><span class="menu__label" data-decode>{{ item.label }}</span></a></li>
+      {% endfor %}
+    </ol>
+  </nav>
+  <div class="menu__credits mono">
+    <div><span class="dim">PROJECT:</span><br>BANDRIP PROTOTYPE</div>
+    <div><span class="dim">STATUS:</span><br>CLIENT PREVIEW</div>
+    <div><span class="dim">CONTENT:</span><br>PLACEHOLDER</div>
+    <div><span class="dim">PHOTOS:</span><br><a href="{% url 'about' %}#credits">PEXELS CREDITS</a></div>
+  </div>
+</div>

@@ -1,0 +1,389 @@
+{
+  "_form-CSUUneWa.js": {
+    "file": "assets/form-CSUUneWa.js",
+    "name": "form"
+  },
+  "_gsap-aLfjG8Xb.js": {
+    "file": "assets/gsap-aLfjG8Xb.js",
+    "name": "gsap"
+  },
+  "_mascot-C1TsHr-z.js": {
+    "file": "assets/mascot-C1TsHr-z.js",
+    "name": "mascot",
+    "isDynamicEntry": true,
+    "imports": [
+      "_three-dQ1cnJTf.js"
+    ]
+  },
+  "_three-dQ1cnJTf.js": {
+    "file": "assets/three-dQ1cnJTf.js",
+    "name": "three"
+  },
+  "frontend/core/renderer.js": {
+    "file": "assets/renderer-Dq1faQSU.js",
+    "name": "renderer",
+    "src": "frontend/core/renderer.js",
+    "isDynamicEntry": true,
+    "imports": [
+      "_three-dQ1cnJTf.js",
+      "frontend/main.js",
+      "_gsap-aLfjG8Xb.js"
+    ]
+  },
+  "frontend/main.js": {
+    "file": "assets/main-CZog_C9L.js",
+    "name": "main",
+    "src": "frontend/main.js",
+    "isEntry": true,
+    "imports": [
+      "_gsap-aLfjG8Xb.js"
+    ],
+    "dynamicImports": [
+      "frontend/pages/home.js",
+      "frontend/pages/depot.js",
+      "frontend/pages/models.js",
+      "frontend/pages/simple.js"
+    ],
+    "css": [
+      "assets/main-BLnGToRO.css"
+    ],
+    "assets": [
+      "assets/anton-vietnamese-400-normal-Ophpuo_x.woff2",
+      "assets/anton-vietnamese-400-normal-B7WhQ-gz.woff",
+      "assets/anton-latin-ext-400-normal-C4DWxNwG.woff2",
+      "assets/anton-latin-ext-400-normal-BGzEkNa2.woff",
+      "assets/anton-latin-400-normal-CgrieXVz.woff2",
+      "assets/anton-latin-400-normal-B3yWuKjA.woff",
+      "assets/space-grotesk-vietnamese-400-normal-Xz5Iioar.woff2",
+      "assets/space-grotesk-vietnamese-400-normal-da0p_TGu.woff",
+      "assets/space-grotesk-latin-ext-400-normal-D7frRTMg.woff2",
+      "assets/space-grotesk-latin-ext-400-normal-Crgx7zTe.woff",
+      "assets/space-grotesk-latin-400-normal-C0oqmF7T.woff2",
+      "assets/space-grotesk-latin-400-normal-ChcWOco_.woff",
+      "assets/space-grotesk-vietnamese-500-normal-DsSuWkZ0.woff2",
+      "assets/space-grotesk-vietnamese-500-normal-DzztwWdx.woff",
+      "assets/space-grotesk-latin-ext-500-normal-CMeIqUb3.woff2",
+      "assets/space-grotesk-latin-ext-500-normal-C2OxGUGH.woff",
+      "assets/space-grotesk-latin-500-normal-DtUIId4r.woff2",
+      "assets/space-grotesk-latin-500-normal-Btx04WmO.woff",
+      "assets/space-grotesk-vietnamese-700-normal-CCX1ne2N.woff2",
+      "assets/space-grotesk-vietnamese-700-normal-BWtyAlKv.woff",
+      "assets/space-grotesk-latin-ext-700-normal-CXJ4FkXv.woff2",
+      "assets/space-grotesk-latin-ext-700-normal-DWId6XrS.woff",
+      "assets/space-grotesk-latin-700-normal-DUDKB872.woff2",
+      "assets/space-grotesk-latin-700-normal-XTACPmcu.woff",
+      "assets/space-mono-vietnamese-400-normal-C1gLLQHE.woff2",
+      "assets/space-mono-vietnamese-400-normal-C_cXB2U0.woff",
+      "assets/space-mono-latin-ext-400-normal-DR7a1phP.woff2",
+      "assets/space-mono-latin-ext-400-normal-CG3Wltlv.woff",
+      "assets/space-mono-latin-400-normal-Co7bH5Hm.woff2",
+      "assets/space-mono-latin-400-normal-Dhx3fije.woff",
+      "assets/space-mono-vietnamese-700-normal-0hHzGqcB.woff2",
+      "assets/space-mono-vietnamese-700-normal-CkMttlPH.woff",
+      "assets/space-mono-latin-ext-700-normal-DVvWKYIc.woff2",
+      "assets/space-mono-latin-ext-700-normal-rbeaugf4.woff",
+      "assets/space-mono-latin-700-normal-DQ28t8ia.woff2",
+      "assets/space-mono-latin-700-normal-DVWAw1oV.woff",
+      "assets/saira-stencil-one-vietnamese-400-normal-GcQNMKdp.woff2",
+      "assets/saira-stencil-one-vietnamese-400-normal-DiYUKF3z.woff",
+      "assets/saira-stencil-one-latin-ext-400-normal-KSD7Nij7.woff2",
+      "assets/saira-stencil-one-latin-ext-400-normal-CNlon2By.woff",
+      "assets/saira-stencil-one-latin-400-normal-C_On3zZ8.woff2",
+      "assets/saira-stencil-one-latin-400-normal-BLkTL5fV.woff",
+      "assets/permanent-marker-latin-400-normal-BF23djCy.woff2",
+      "assets/permanent-marker-latin-400-normal-BnZj5c41.woff",
+      "assets/brick_dark-CVehKk-A.webp",
+      "assets/cursor-spray-dVv3n9m2.png",
+      "assets/concrete_tagged-BLY4zXB7.webp",
+      "assets/concrete_dark_tagged-Dpbbkj3Y.webp",
+      "assets/tape-veYkzVik.webp"
+    ]
+  },
+  "frontend/pages/depot.js": {
+    "file": "assets/depot-i9o4NC3N.js",
+    "name": "depot",
+    "src": "frontend/pages/depot.js",
+    "isDynamicEntry": true,
+    "imports": [
+      "frontend/main.js",
+      "_gsap-aLfjG8Xb.js"
+    ],
+    "dynamicImports": [
+      "frontend/core/renderer.js",
+      "frontend/scenes/depot.js"
+    ]
+  },
+  "frontend/pages/home.js": {
+    "file": "assets/home-DVMNM6UV.js",
+    "name": "home",
+    "src": "frontend/pages/home.js",
+    "isDynamicEntry": true,
+    "imports": [
+      "frontend/main.js",
+      "_gsap-aLfjG8Xb.js"
+    ],
+    "dynamicImports": [
+      "frontend/core/renderer.js",
+      "_mascot-C1TsHr-z.js",
+      "frontend/scenes/fluid.js",
+      "frontend/scenes/extras.js"
+    ]
+  },
+  "frontend/pages/models.js": {
+    "file": "assets/models-Cwk7B70Z.js",
+    "name": "models",
+    "src": "frontend/pages/models.js",
+    "isDynamicEntry": true,
+    "imports": [
+      "frontend/main.js",
+      "_form-CSUUneWa.js",
+      "_gsap-aLfjG8Xb.js"
+    ],
+    "dynamicImports": [
+      "frontend/core/renderer.js",
+      "frontend/scenes/runway.js"
+    ]
+  },
+  "frontend/pages/simple.js": {
+    "file": "assets/simple-Euk8V29-.js",
+    "name": "simple",
+    "src": "frontend/pages/simple.js",
+    "isDynamicEntry": true,
+    "imports": [
+      "_gsap-aLfjG8Xb.js",
+      "_form-CSUUneWa.js"
+    ]
+  },
+  "frontend/scenes/depot.js": {
+    "file": "assets/depot-Cq3HhNua.js",
+    "name": "depot",
+    "src": "frontend/scenes/depot.js",
+    "isDynamicEntry": true,
+    "imports": [
+      "_three-dQ1cnJTf.js",
+      "_mascot-C1TsHr-z.js"
+    ]
+  },
+  "frontend/scenes/extras.js": {
+    "file": "assets/extras-CHf_yiNZ.js",
+    "name": "extras",
+    "src": "frontend/scenes/extras.js",
+    "isDynamicEntry": true,
+    "imports": [
+      "_three-dQ1cnJTf.js",
+      "_mascot-C1TsHr-z.js"
+    ]
+  },
+  "frontend/scenes/fluid.js": {
+    "file": "assets/fluid-CZ3qr-Is.js",
+    "name": "fluid",
+    "src": "frontend/scenes/fluid.js",
+    "isDynamicEntry": true
+  },
+  "frontend/scenes/runway.js": {
+    "file": "assets/runway-B_Sm5PaR.js",
+    "name": "runway",
+    "src": "frontend/scenes/runway.js",
+    "isDynamicEntry": true,
+    "imports": [
+      "_three-dQ1cnJTf.js",
+      "_mascot-C1TsHr-z.js"
+    ]
+  },
+  "node_modules/@fontsource/anton/files/anton-latin-400-normal.woff": {
+    "file": "assets/anton-latin-400-normal-B3yWuKjA.woff",
+    "src": "node_modules/@fontsource/anton/files/anton-latin-400-normal.woff"
+  },
+  "node_modules/@fontsource/anton/files/anton-latin-400-normal.woff2": {
+    "file": "assets/anton-latin-400-normal-CgrieXVz.woff2",
+    "src": "node_modules/@fontsource/anton/files/anton-latin-400-normal.woff2"
+  },
+  "node_modules/@fontsource/anton/files/anton-latin-ext-400-normal.woff": {
+    "file": "assets/anton-latin-ext-400-normal-BGzEkNa2.woff",
+    "src": "node_modules/@fontsource/anton/files/anton-latin-ext-400-normal.woff"
+  },
+  "node_modules/@fontsource/anton/files/anton-latin-ext-400-normal.woff2": {
+    "file": "assets/anton-latin-ext-400-normal-C4DWxNwG.woff2",
+    "src": "node_modules/@fontsource/anton/files/anton-latin-ext-400-normal.woff2"
+  },
+  "node_modules/@fontsource/anton/files/anton-vietnamese-400-normal.woff": {
+    "file": "assets/anton-vietnamese-400-normal-B7WhQ-gz.woff",
+    "src": "node_modules/@fontsource/anton/files/anton-vietnamese-400-normal.woff"
+  },
+  "node_modules/@fontsource/anton/files/anton-vietnamese-400-normal.woff2": {
+    "file": "assets/anton-vietnamese-400-normal-Ophpuo_x.woff2",
+    "src": "node_modules/@fontsource/anton/files/anton-vietnamese-400-normal.woff2"
+  },
+  "node_modules/@fontsource/permanent-marker/files/permanent-marker-latin-400-normal.woff": {
+    "file": "assets/permanent-marker-latin-400-normal-BnZj5c41.woff",
+    "src": "node_modules/@fontsource/permanent-marker/files/permanent-marker-latin-400-normal.woff"
+  },
+  "node_modules/@fontsource/permanent-marker/files/permanent-marker-latin-400-normal.woff2": {
+    "file": "assets/permanent-marker-latin-400-normal-BF23djCy.woff2",
+    "src": "node_modules/@fontsource/permanent-marker/files/permanent-marker-latin-400-normal.woff2"
+  },
+  "node_modules/@fontsource/saira-stencil-one/files/saira-stencil-one-latin-400-normal.woff": {
+    "file": "assets/saira-stencil-one-latin-400-normal-BLkTL5fV.woff",
+    "src": "node_modules/@fontsource/saira-stencil-one/files/saira-stencil-one-latin-400-normal.woff"
+  },
+  "node_modules/@fontsource/saira-stencil-one/files/saira-stencil-one-latin-400-normal.woff2": {
+    "file": "assets/saira-stencil-one-latin-400-normal-C_On3zZ8.woff2",
+    "src": "node_modules/@fontsource/saira-stencil-one/files/saira-stencil-one-latin-400-normal.woff2"
+  },
+  "node_modules/@fontsource/saira-stencil-one/files/saira-stencil-one-latin-ext-400-normal.woff": {
+    "file": "assets/saira-stencil-one-latin-ext-400-normal-CNlon2By.woff",
+    "src": "node_modules/@fontsource/saira-stencil-one/files/saira-stencil-one-latin-ext-400-normal.woff"
+  },
+  "node_modules/@fontsource/saira-stencil-one/files/saira-stencil-one-latin-ext-400-normal.woff2": {
+    "file": "assets/saira-stencil-one-latin-ext-400-normal-KSD7Nij7.woff2",
+    "src": "node_modules/@fontsource/saira-stencil-one/files/saira-stencil-one-latin-ext-400-normal.woff2"
+  },
+  "node_modules/@fontsource/saira-stencil-one/files/saira-stencil-one-vietnamese-400-normal.woff": {
+    "file": "assets/saira-stencil-one-vietnamese-400-normal-DiYUKF3z.woff",
+    "src": "node_modules/@fontsource/saira-stencil-one/files/saira-stencil-one-vietnamese-400-normal.woff"
+  },
+  "node_modules/@fontsource/saira-stencil-one/files/saira-stencil-one-vietnamese-400-normal.woff2": {
+    "file": "assets/saira-stencil-one-vietnamese-400-normal-GcQNMKdp.woff2",
+    "src": "node_modules/@fontsource/saira-stencil-one/files/saira-stencil-one-vietnamese-400-normal.woff2"
+  },
+  "node_modules/@fontsource/space-grotesk/files/space-grotesk-latin-400-normal.woff": {
+    "file": "assets/space-grotesk-latin-400-normal-ChcWOco_.woff",
+    "src": "node_modules/@fontsource/space-grotesk/files/space-grotesk-latin-400-normal.woff"
+  },
+  "node_modules/@fontsource/space-grotesk/files/space-grotesk-latin-400-normal.woff2": {
+    "file": "assets/space-grotesk-latin-400-normal-C0oqmF7T.woff2",
+    "src": "node_modules/@fontsource/space-grotesk/files/space-grotesk-latin-400-normal.woff2"
+  },
+  "node_modules/@fontsource/space-grotesk/files/space-grotesk-latin-500-normal.woff": {
+    "file": "assets/space-grotesk-latin-500-normal-Btx04WmO.woff",
+    "src": "node_modules/@fontsource/space-grotesk/files/space-grotesk-latin-500-normal.woff"
+  },
+  "node_modules/@fontsource/space-grotesk/files/space-grotesk-latin-500-normal.woff2": {
+    "file": "assets/space-grotesk-latin-500-normal-DtUIId4r.woff2",
+    "src": "node_modules/@fontsource/space-grotesk/files/space-grotesk-latin-500-normal.woff2"
+  },
+  "node_modules/@fontsource/space-grotesk/files/space-grotesk-latin-700-normal.woff": {
+    "file": "assets/space-grotesk-latin-700-normal-XTACPmcu.woff",
+    "src": "node_modules/@fontsource/space-grotesk/files/space-grotesk-latin-700-normal.woff"
+  },
+  "node_modules/@fontsource/space-grotesk/files/space-grotesk-latin-700-normal.woff2": {
+    "file": "assets/space-grotesk-latin-700-normal-DUDKB872.woff2",
+    "src": "node_modules/@fontsource/space-grotesk/files/space-grotesk-latin-700-normal.woff2"
+  },
+  "node_modules/@fontsource/space-grotesk/files/space-grotesk-latin-ext-400-normal.woff": {
+    "file": "assets/space-grotesk-latin-ext-400-normal-Crgx7zTe.woff",
+    "src": "node_modules/@fontsource/space-grotesk/files/space-grotesk-latin-ext-400-normal.woff"
+  },
+  "node_modules/@fontsource/space-grotesk/files/space-grotesk-latin-ext-400-normal.woff2": {
+    "file": "assets/space-grotesk-latin-ext-400-normal-D7frRTMg.woff2",
+    "src": "node_modules/@fontsource/space-grotesk/files/space-grotesk-latin-ext-400-normal.woff2"
+  },
+  "node_modules/@fontsource/space-grotesk/files/space-grotesk-latin-ext-500-normal.woff": {
+    "file": "assets/space-grotesk-latin-ext-500-normal-C2OxGUGH.woff",
+    "src": "node_modules/@fontsource/space-grotesk/files/space-grotesk-latin-ext-500-normal.woff"
+  },
+  "node_modules/@fontsource/space-grotesk/files/space-grotesk-latin-ext-500-normal.woff2": {
+    "file": "assets/space-grotesk-latin-ext-500-normal-CMeIqUb3.woff2",
+    "src": "node_modules/@fontsource/space-grotesk/files/space-grotesk-latin-ext-500-normal.woff2"
+  },
+  "node_modules/@fontsource/space-grotesk/files/space-grotesk-latin-ext-700-normal.woff": {
+    "file": "assets/space-grotesk-latin-ext-700-normal-DWId6XrS.woff",
+    "src": "node_modules/@fontsource/space-grotesk/files/space-grotesk-latin-ext-700-normal.woff"
+  },
+  "node_modules/@fontsource/space-grotesk/files/space-grotesk-latin-ext-700-normal.woff2": {
+    "file": "assets/space-grotesk-latin-ext-700-normal-CXJ4FkXv.woff2",
+    "src": "node_modules/@fontsource/space-grotesk/files/space-grotesk-latin-ext-700-normal.woff2"
+  },
+  "node_modules/@fontsource/space-grotesk/files/space-grotesk-vietnamese-400-normal.woff": {
+    "file": "assets/space-grotesk-vietnamese-400-normal-da0p_TGu.woff",
+    "src": "node_modules/@fontsource/space-grotesk/files/space-grotesk-vietnamese-400-normal.woff"
+  },
+  "node_modules/@fontsource/space-grotesk/files/space-grotesk-vietnamese-400-normal.woff2": {
+    "file": "assets/space-grotesk-vietnamese-400-normal-Xz5Iioar.woff2",
+    "src": "node_modules/@fontsource/space-grotesk/files/space-grotesk-vietnamese-400-normal.woff2"
+  },
+  "node_modules/@fontsource/space-grotesk/files/space-grotesk-vietnamese-500-normal.woff": {
+    "file": "assets/space-grotesk-vietnamese-500-normal-DzztwWdx.woff",
+    "src": "node_modules/@fontsource/space-grotesk/files/space-grotesk-vietnamese-500-normal.woff"
+  },
+  "node_modules/@fontsource/space-grotesk/files/space-grotesk-vietnamese-500-normal.woff2": {
+    "file": "assets/space-grotesk-vietnamese-500-normal-DsSuWkZ0.woff2",
+    "src": "node_modules/@fontsource/space-grotesk/files/space-grotesk-vietnamese-500-normal.woff2"
+  },
+  "node_modules/@fontsource/space-grotesk/files/space-grotesk-vietnamese-700-normal.woff": {
+    "file": "assets/space-grotesk-vietnamese-700-normal-BWtyAlKv.woff",
+    "src": "node_modules/@fontsource/space-grotesk/files/space-grotesk-vietnamese-700-normal.woff"
+  },
+  "node_modules/@fontsource/space-grotesk/files/space-grotesk-vietnamese-700-normal.woff2": {
+    "file": "assets/space-grotesk-vietnamese-700-normal-CCX1ne2N.woff2",
+    "src": "node_modules/@fontsource/space-grotesk/files/space-grotesk-vietnamese-700-normal.woff2"
+  },
+  "node_modules/@fontsource/space-mono/files/space-mono-latin-400-normal.woff": {
+    "file": "assets/space-mono-latin-400-normal-Dhx3fije.woff",
+    "src": "node_modules/@fontsource/space-mono/files/space-mono-latin-400-normal.woff"
+  },
+  "node_modules/@fontsource/space-mono/files/space-mono-latin-400-normal.woff2": {
+    "file": "assets/space-mono-latin-400-normal-Co7bH5Hm.woff2",
+    "src": "node_modules/@fontsource/space-mono/files/space-mono-latin-400-normal.woff2"
+  },
+  "node_modules/@fontsource/space-mono/files/space-mono-latin-700-normal.woff": {
+    "file": "assets/space-mono-latin-700-normal-DVWAw1oV.woff",
+    "src": "node_modules/@fontsource/space-mono/files/space-mono-latin-700-normal.woff"
+  },
+  "node_modules/@fontsource/space-mono/files/space-mono-latin-700-normal.woff2": {
+    "file": "assets/space-mono-latin-700-normal-DQ28t8ia.woff2",
+    "src": "node_modules/@fontsource/space-mono/files/space-mono-latin-700-normal.woff2"
+  },
+  "node_modules/@fontsource/space-mono/files/space-mono-latin-ext-400-normal.woff": {
+    "file": "assets/space-mono-latin-ext-400-normal-CG3Wltlv.woff",
+    "src": "node_modules/@fontsource/space-mono/files/space-mono-latin-ext-400-normal.woff"
+  },
+  "node_modules/@fontsource/space-mono/files/space-mono-latin-ext-400-normal.woff2": {
+    "file": "assets/space-mono-latin-ext-400-normal-DR7a1phP.woff2",
+    "src": "node_modules/@fontsource/space-mono/files/space-mono-latin-ext-400-normal.woff2"
+  },
+  "node_modules/@fontsource/space-mono/files/space-mono-latin-ext-700-normal.woff": {
+    "file": "assets/space-mono-latin-ext-700-normal-rbeaugf4.woff",
+    "src": "node_modules/@fontsource/space-mono/files/space-mono-latin-ext-700-normal.woff"
+  },
+  "node_modules/@fontsource/space-mono/files/space-mono-latin-ext-700-normal.woff2": {
+    "file": "assets/space-mono-latin-ext-700-normal-DVvWKYIc.woff2",
+    "src": "node_modules/@fontsource/space-mono/files/space-mono-latin-ext-700-normal.woff2"
+  },
+  "node_modules/@fontsource/space-mono/files/space-mono-vietnamese-400-normal.woff": {
+    "file": "assets/space-mono-vietnamese-400-normal-C_cXB2U0.woff",
+    "src": "node_modules/@fontsource/space-mono/files/space-mono-vietnamese-400-normal.woff"
+  },
+  "node_modules/@fontsource/space-mono/files/space-mono-vietnamese-400-normal.woff2": {
+    "file": "assets/space-mono-vietnamese-400-normal-C1gLLQHE.woff2",
+    "src": "node_modules/@fontsource/space-mono/files/space-mono-vietnamese-400-normal.woff2"
+  },
+  "node_modules/@fontsource/space-mono/files/space-mono-vietnamese-700-normal.woff": {
+    "file": "assets/space-mono-vietnamese-700-normal-CkMttlPH.woff",
+    "src": "node_modules/@fontsource/space-mono/files/space-mono-vietnamese-700-normal.woff"
+  },
+  "node_modules/@fontsource/space-mono/files/space-mono-vietnamese-700-normal.woff2": {
+    "file": "assets/space-mono-vietnamese-700-normal-0hHzGqcB.woff2",
+    "src": "node_modules/@fontsource/space-mono/files/space-mono-vietnamese-700-normal.woff2"
+  },
+  "static/img/cursor-spray.png": {
+    "file": "assets/cursor-spray-dVv3n9m2.png",
+    "src": "static/img/cursor-spray.png"
+  },
+  "static/img/graffiti/tape.webp": {
+    "file": "assets/tape-veYkzVik.webp",
+    "src": "static/img/graffiti/tape.webp"
+  },
+  "static/img/walls/brick_dark.webp": {
+    "file": "assets/brick_dark-CVehKk-A.webp",
+    "src": "static/img/walls/brick_dark.webp"
+  },
+  "static/img/walls/concrete_dark_tagged.webp": {
+    "file": "assets/concrete_dark_tagged-Dpbbkj3Y.webp",
+    "src": "static/img/walls/concrete_dark_tagged.webp"
+  },
+  "static/img/walls/concrete_tagged.webp": {
+    "file": "assets/concrete_tagged-BLY4zXB7.webp",
+    "src": "static/img/walls/concrete_tagged.webp"
+  }
+}

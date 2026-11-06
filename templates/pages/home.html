@@ -1,0 +1,237 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block head %}
+  <link rel="preload" as="image" href="{% static 'img/haze-wide.webp' %}" media="(min-width: 761px)">
+  <link rel="preload" as="image" href="{% static 'img/haze-tall.webp' %}" media="(max-width: 760px)">
+  <link rel="preload" as="image" href="{% static 'img/mascot-poster.webp' %}">
+{% endblock %}
+{% block content %}
+
+{# 3D layer: one WebGL canvas for the whole page (mascot travels between chapters) #}
+<div class="stage" aria-hidden="true"><canvas class="stage__canvas" data-stage></canvas></div>
+
+{# 01 — HERO #}
+<section class="hero chapter" data-label="BANDRIP" data-field="#E9DED3" data-drip="#E63228" aria-labelledby="hero-title">
+  <picture class="hero__bg" aria-hidden="true">
+    <source media="(max-width: 760px)" srcset="{% static 'img/haze-tall.webp' %}">
+    <img src="{% static 'img/haze-wide.webp' %}" alt="" width="2400" height="1350" fetchpriority="high" decoding="async">
+  </picture>
+  <canvas class="hero__fluid" data-fluid aria-hidden="true"></canvas>
+  <div class="hero__dots" aria-hidden="true"></div>
+
+  <h1 id="hero-title" class="hero__marquee" aria-label="BANDRIP — street uniform">
+    <span class="marquee" aria-hidden="true">
+      <span class="marquee__track">
+        {% for i in "123" %}<span class="marquee__item">BANDRIP<i class="tag mono">B_00{{ i }}</i> STREET<i class="tag tag--rot mono">B_01{{ i }}</i> UNIFORM<i class="tag mono">B_02{{ i }}</i> </span>{% endfor %}
+      </span>
+    </span>
+  </h1>
+
+  <div class="hero__graf" aria-hidden="true">
+    <img class="g g--crown" src="{% static 'img/graffiti/doodle_crown.webp' %}" alt="">
+    <img class="g g--rip" src="{% static 'img/graffiti/tag_rip_red.webp' %}" alt="">
+    <img class="g g--arrow" src="{% static 'img/graffiti/doodle_arrow.webp' %}" alt="">
+    <img class="g g--sticker" src="{% static 'img/graffiti/sticker_round.webp' %}" alt="">
+    <img class="g g--tape" src="{% static 'img/graffiti/tape.webp' %}" alt="">
+  </div>
+  <img class="hero__poster" src="{% static 'img/mascot-poster.webp' %}" alt="BANDRIP mascot: a skull in a black cap, wrap sunglasses and a red paisley bandana (temporary interpretation of the logo)" width="1000" height="1250" fetchpriority="high">
+
+  <div class="hero__micro hero__micro--l mono">
+    <span aria-hidden="true">+++</span>
+    <span data-decode>CUT LOOSE</span>
+    <span data-decode>DROP_01</span>
+    <span class="hero__spray-hint"><i aria-hidden="true"></i>HOLD MOUSE TO SPRAY THE SMOKE</span>
+  </div>
+  <div class="hero__micro hero__micro--r mono">
+    <span aria-hidden="true">+++</span>
+    <span data-decode>WEAR IT LOUD</span>
+    <span data-decode>STUDIO OPEN</span>
+    <a class="u-link hero__runway" href="{% url 'models' %}">WALK THE RUNWAY →</a>
+  </div>
+
+  <p class="hero__corner hero__corner--l display" aria-hidden="true"><i class="tag tag--rot mono">B_014</i>STREET</p>
+  <p class="hero__corner hero__corner--r display" aria-hidden="true">UNIFORM<i class="tag mono">B_001</i></p>
+
+  <div class="hero__actions">
+    <a class="capsule" href="{% url 'collections' %}"><span>ENTER THE DEPOT</span><i aria-hidden="true">›››</i></a>
+  </div>
+  <p class="sr-only">BANDRIP is a unisex streetwear label with its own modelling studio. Scroll to see the drop, the studio and the collections.</p>
+</section>
+
+{# 02 — IDENTITY #}
+<section class="identity chapter wall wall--concrete" data-label="BANDRIP // IDENTITY" data-field="#F2F0E9" data-drip aria-labelledby="identity-title">
+  <div class="spraytag" data-spray-reveal data-src="{% static 'img/graffiti/tag_street_ink.webp' %}" data-can="{% static 'img/spraycan.webp' %}" aria-hidden="true"></div>
+  <div class="identity__head">
+    <p class="mono kicker"><span aria-hidden="true">+++</span> 01 / WHO WE ARE</p>
+    <h2 id="identity-title" class="display identity__title" data-decode-block>
+      <span>CUT FOR THE STREET.</span>
+      <span>FITTED IN THE STUDIO.</span>
+    </h2>
+  </div>
+  <figure class="identity__img identity__img--a" data-parallax="0.86">
+    {% include 'partials/img.html' with p=identity.0 sizes='(max-width: 760px) 90vw, 38vw' %}
+    <figcaption class="mono">FIG_01 · BOXY TEE / UTILITY CARGO</figcaption>
+  </figure>
+  <figure class="identity__img identity__img--b" data-parallax="1.16">
+    {% include 'partials/img.html' with p=identity.1 sizes='(max-width: 760px) 70vw, 26vw' %}
+    <figcaption class="mono">FIG_02 · SHELL / LONG TEE</figcaption>
+  </figure>
+  <div class="identity__copy">
+    <p>BANDRIP makes unisex streetwear: oversized tees, shirts, outerwear, cargos and the accessories that finish them. The same team runs a modelling studio, so every piece is cut, styled and photographed on the people who wear it.</p>
+    <ul class="spec mono">
+      <li><span class="dim">FIT_DNA:</span> OVERSIZED</li>
+      <li><span class="dim">CUT:</span> UNISEX</li>
+      <li><span class="dim">MADE_FOR:</span> THE STREET</li>
+    </ul>
+  </div>
+</section>
+
+{# 03 — MODELS (layered editorial) #}
+<section class="models chapter" data-label="BANDRIP // MODELS" data-field="#A9A59C" data-drip aria-labelledby="models-title">
+  <h2 id="models-title" class="display models__title"><span data-decode>ON THE PEOPLE</span><span data-decode>WHO WEAR IT</span></h2>
+  <div class="models__stack">
+    <figure class="m-img m-img--1 taped" data-reveal="up">{% include 'partials/img.html' with p=models.0 sizes='(max-width: 760px) 60vw, 26vw' %}</figure>
+    <figure class="m-img m-img--2" data-reveal="left">{% include 'partials/img.html' with p=models.1 sizes='(max-width: 760px) 60vw, 22vw' %}</figure>
+    <figure class="m-img m-img--3" data-reveal="right" data-velocity>{% include 'partials/img.html' with p=models.2 sizes='(max-width: 760px) 100vw, 46vw' %}</figure>
+    <figure class="m-img m-img--4 taped" data-reveal="down">{% include 'partials/img.html' with p=models.3 sizes='(max-width: 760px) 50vw, 18vw' %}</figure>
+    <figure class="m-img m-img--5" data-reveal="up">{% include 'partials/img.html' with p=models.4 sizes='(max-width: 760px) 50vw, 16vw' %}</figure>
+  </div>
+  <p class="models__caption mono">FIG_03–07 · STUDIO TESTS · <span class="dim">PHOTOS: PEXELS (TEMPORARY)</span></p>
+  <a class="u-link mono models__link" href="{% url 'models' %}">MEET THE STUDIO →</a>
+</section>
+
+{# 04 — COLLECTIONS (DICH technical layout, pinned) #}
+{# 03b — THE DROP: scroll to spray-tag the hoodie (client GLB, retextured) #}
+<section class="drop chapter" data-label="BANDRIP // THE_DROP" data-field="#151515" data-drip aria-labelledby="drop-title" data-drop>
+  <div class="drop__pin wall wall--dark">
+    <div class="drop__text">
+      <p class="mono kicker"><i class="sq"></i> 02 / THE DROP · HOODIE_001</p>
+      <h2 id="drop-title" class="display drop__title"><span>SCROLL</span><span>TO TAG IT</span></h2>
+      <p class="drop__copy">Every BANDRIP hoodie leaves the studio blank. Keep scrolling and the can does the rest: no two are sprayed alike. <span class="dim">(Concept, to be confirmed.)</span></p>
+      <div class="drop__meter mono" aria-hidden="true"><span>PAINT</span><i><b data-drop-bar></b></i><span><span data-drop-pct>0</span>%</span></div>
+      <ul class="spec mono"><li>HEAVY FLEECE (DEMO)</li><li>BOXY HOOD · DROP SHOULDER</li><li>HAND-SPRAYED · ONE OF ONE</li></ul>
+      <a class="capsule capsule--chalk" href="{% url 'category' 'jackets' %}"><span>SHOP OUTERWEAR</span><i aria-hidden="true">›››</i></a>
+    </div>
+    <img class="drop__poster" src="{% static 'img/graffiti/hoodie_graffiti.webp' %}" alt="" aria-hidden="true">
+    <p class="drop__credit mono">HOODIE MESH: HARRISON.CLAYTON (CC BY 4.0), RETEXTURED FOR BANDRIP</p>
+  </div>
+</section>
+
+<section class="fam chapter" data-label="BANDRIP // COLLECTIONS" data-field="#F2F0E9" data-drip aria-labelledby="fam-title" data-fam>
+  <h2 id="fam-title" class="sr-only">Collections</h2>
+  <div class="fam__pin">
+    <div class="fam__left mono" aria-hidden="true">
+      <p><span>+++</span><br><span data-fam-field="spec0">DARE_TO_DRESS</span><br><span class="dim">&lt;FIT CHECK=...&gt;</span></p>
+      <div class="fam__bars"><i></i><i></i></div>
+      <ul class="fam__spec" data-fam-spec></ul>
+      <svg class="fam__diag" viewBox="0 0 170 170" aria-hidden="true"><path d="M8 162 L162 8" stroke-dasharray="3 4"/><rect x="40" y="96" width="34" height="34"/><rect x="64" y="72" width="22" height="22"/><path d="M152 8 h10 v10"/></svg>
+    </div>
+    <div class="fam__center">
+      <div class="fam__box" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+      <div class="fam__disc" data-fam-disc>
+        <svg class="fam__liquid" aria-hidden="true" width="0" height="0"><filter id="liquid" x="-10%" y="-10%" width="120%" height="120%"><feTurbulence type="fractalNoise" baseFrequency="0.012 0.018" numOctaves="2" seed="4" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="0" xChannelSelector="R" yChannelSelector="G" data-liquid-map/></filter></svg>
+        {% for f in families %}
+          <img class="fam__disc-img{% if forloop.first %} is-active{% endif %}" src="{% static f.disc_photo.src.800 %}" alt="{{ f.disc_photo.alt }}" width="{{ f.disc_photo.width }}" height="{{ f.disc_photo.height }}" loading="lazy" decoding="async" data-i="{{ forloop.counter0 }}">
+        {% endfor %}
+      </div>
+    </div>
+    <div class="fam__right">
+      <p class="mono fam__tag"><i class="sq"></i> <span data-fam-field="name">{{ families.0.name }}</span></p>
+      <p class="fam__index display" aria-hidden="true"><span data-fam-field="num">.{{ families.0.num }}</span></p>
+      <a class="capsule" data-fam-link href="{% url 'collections' %}{{ families.0.slug }}/"><span>DISCOVER</span><i aria-hidden="true">›››</i></a>
+      <p class="fam__line" data-fam-field="line">{{ families.0.line }}</p>
+      <ol class="fam__thumbs mono" data-fam-thumbs aria-label="Collections">
+        {% for f in families %}
+          <li><button type="button" data-fam-go="{{ forloop.counter0 }}"{% if forloop.first %} aria-current="true"{% endif %}><span>{{ f.num }}</span><img src="{% static f.thumb_photos.0.src.800 %}" alt="" width="80" height="100" loading="lazy" decoding="async"><b class="sr-only">{{ f.name }}</b></button></li>
+        {% endfor %}
+      </ol>
+    </div>
+    <p class="fam__name display" aria-hidden="true"><i class="tag mono">B_0{{ families.0.num }}</i><span data-fam-field="bigname">{{ families.0.name }}</span></p>
+  </div>
+  {# readable list for no-JS / assistive tech #}
+  <ul class="fam__list">
+    {% for f in families %}
+      <li data-fam-item data-num="{{ f.num }}" data-name="{{ f.name }}" data-line="{{ f.line }}" data-slug="{{ f.slug }}" data-spec="{{ f.spec|join:'|' }}">
+        <a href="{% url 'collections' %}{{ f.slug }}/"><span class="mono">.{{ f.num }}</span> {{ f.name }} — {{ f.line }}</a>
+      </li>
+    {% endfor %}
+  </ul>
+</section>
+
+{# 05 — VALUES #}
+<section class="values chapter wall wall--redbrick" data-label="BANDRIP // VALUES" data-field="#E63228" data-drip aria-labelledby="values-title">
+  <h2 id="values-title" class="display values__title"><span data-decode>HOW WE</span><span data-decode>MAKE IT</span></h2>
+  <p class="values__intro">Three rules for every piece. Specifications shown are placeholders until BANDRIP confirms them.</p>
+  <div class="values__list">
+    <article class="value value--l poster">
+      <svg class="value__icon" viewBox="0 0 40 40" aria-hidden="true"><rect x="6" y="6" width="28" height="28"/><path d="M6 20h28M20 6v28"/></svg>
+      <p class="value__num display">.001</p>
+      <p class="mono dim">CUT</p>
+      <h3 class="display value__title" data-decode>FIT</h3>
+      <p>Dropped shoulders, long bodies, wide legs. Patterns are graded so the oversized shape holds on every size.</p>
+    </article>
+    <article class="value value--r poster">
+      <svg class="value__icon" viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="14"/><circle cx="20" cy="20" r="4"/><path d="M20 2v8M20 30v8M2 20h8M30 20h8"/></svg>
+      <p class="value__num display">.002</p>
+      <p class="mono dim">CLOTH</p>
+      <h3 class="display value__title" data-decode>FABRIC</h3>
+      <p>Heavy jersey, poplin, denim and ripstop chosen to hold their shape through daily wear and washing.</p>
+    </article>
+    <article class="value value--l poster">
+      <svg class="value__icon" viewBox="0 0 40 40" aria-hidden="true"><path d="M8 32 20 6l12 26z"/><path d="M14 22h12"/></svg>
+      <p class="value__num display">.003</p>
+      <p class="mono dim">PEOPLE</p>
+      <h3 class="display value__title" data-decode>FACE</h3>
+      <p>The studio casts and trains its own models, so the brand is shown on the people who wear it every day.</p>
+    </article>
+  </div>
+</section>
+
+{# 06 — RUNWAY PREVIEW #}
+<section class="runway-pre chapter" data-label="BANDRIP // RUNWAY_PREVIEW" data-field="#2A2927" data-drip aria-labelledby="runway-title">
+  <img class="runway-pre__stencil" src="{% static 'img/graffiti/stencil_studio_open.webp' %}" alt="" aria-hidden="true">
+  <div class="runway-pre__head">
+    <p class="mono kicker"><i class="sq"></i> STUDIO_SHOW 01</p>
+    <h2 id="runway-title" class="display runway-pre__title"><span class="brk" aria-hidden="true"></span><span data-decode>RUNWAY</span><span class="brk brk--r" aria-hidden="true"></span></h2>
+    <p class="runway-pre__copy">The BANDRIP studio hires and trains models for the label's shoots and shows. Step onto the virtual runway to see how it works.</p>
+  </div>
+  <div class="circles">
+    {% for p in circles %}
+      <figure class="circle circle--{{ forloop.counter }}" data-rise="{{ forloop.counter }}">{% include 'partials/img.html' with p=p sizes='(max-width: 760px) 40vw, 24vw' %}</figure>
+    {% endfor %}
+  </div>
+  <div class="lineup" data-lineup>
+    <div class="lineup__meta mono"><span>ALPHA_LINE // STUDIO MODELS</span><span>RIGHT: SCROLL → · LEFT: ← BACK</span></div>
+    <div class="lineup__track" data-lineup-track>
+      {% for p in lineup %}
+        <figure class="lineup__item">{% include 'partials/img.html' with p=p sizes='(max-width: 760px) 50vw, 18vw' %}<figcaption class="mono">M_{{ forloop.counter|stringformat:"02d" }}</figcaption></figure>
+      {% endfor %}
+    </div>
+  </div>
+  <a class="capsule capsule--chalk runway-pre__cta" href="{% url 'models' %}"><span>WALK THE RUNWAY</span><i aria-hidden="true">›››</i></a>
+</section>
+{% endblock %}
+
+{% block footer %}
+{# 07 — BOTTOM (DICH footer) #}
+<footer class="bottom chapter wall wall--brick" data-label="BANDRIP // BOTTOM" data-field="#151515" aria-labelledby="bottom-title">
+  <div class="bottom__top mono"><span>STORY: THE STREET</span><h2 id="bottom-title" class="display bottom__title" data-decode>INTO THE STREET</h2><a href="#main" class="u-link" data-to-top>BACK TO TOP ↑</a></div>
+  <div class="bottom__mid">
+    <div class="bottom__side mono" aria-hidden="true"><span data-type>C://STREET_FILES</span><span data-type>...PROTOCOL_BR/S</span><span data-type>//////...DROP_01</span><span data-type>&lt;ACCESS GRANTED&gt;</span></div>
+    <canvas class="bottom__scan" data-scan aria-hidden="true"></canvas>
+    <p class="sr-only">BANDRIP</p>
+    <div class="bottom__side bottom__side--r mono" aria-hidden="true"><span data-type>D://STUDIO_CORE</span><span data-type>...BANDRIP</span><span data-type>//////...MODELS</span><span data-type>&lt;FILE DECRYPTED&gt;</span></div>
+  </div>
+  <nav class="bottom__exits" aria-label="Explore">
+    <a class="bottom__exit" href="{% url 'collections' %}"><span class="mono">01</span><span class="display">COLLECTIONS</span></a>
+    <a class="bottom__exit" href="{% url 'models' %}"><span class="mono">02</span><span class="display">STUDIO</span></a>
+    <a class="bottom__exit" href="{% url 'stores' %}"><span class="mono">03</span><span class="display">CONTACT</span></a>
+  </nav>
+  <dl class="bottom__credits mono">
+    <div><dt class="dim">SITE BY:</dt><dd>PROTOTYPE BUILD</dd></div>
+    <div><dt class="dim">PROJECT:</dt><dd>BANDRIP DROP_01</dd></div>
+    <div><dt class="dim">LEGAL:</dt><dd>PLACEHOLDER CONTENT</dd></div>
+    <div><dt class="dim">PHOTOS:</dt><dd><a href="{% url 'about' %}#credits">PEXELS — CREDITS</a></dd></div>
+  </dl>
+</footer>
+{% endblock %}

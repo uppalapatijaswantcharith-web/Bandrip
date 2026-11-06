@@ -1,0 +1,16 @@
+{% load static %}<div class="gate" role="dialog" aria-modal="true" aria-labelledby="gate-title" data-gate>
+  <div class="gate__wall" aria-hidden="true"></div>
+  <canvas class="gate__paint" data-gate-paint aria-hidden="true"></canvas>
+  <header class="gate__top mono" aria-hidden="true">
+    <span>BANDRIP // DROP_01</span>
+    <span class="gate__gauge"><span>PAINT</span><i><b data-gate-bar></b></i><span><span data-gate-pct>0</span>%</span></span>
+    <span>STREET UNIFORM · STUDIO</span>
+  </header>
+  <h1 id="gate-title" class="sr-only">BANDRIP — hold to spray the tag and enter</h1>
+  <img class="gate__can" src="{% static 'img/spraycan.webp' %}" alt="" data-gate-can width="420" height="900">
+  <button class="gate__btn" type="button" data-gate-ring aria-describedby="gate-hint">
+    <span class="gate__btn-label mono" data-gate-label>HOLD TO TAG THE WALL</span>
+  </button>
+  <p class="gate__hint mono" id="gate-hint">PRESS AND HOLD ANYWHERE · OR PRESS ENTER · <span class="dim">SHAKE WELL BEFORE USE</span></p>
+  <button class="gate__skip mono" type="button" data-gate-skip>SKIP INTRO →</button>
+</div>
