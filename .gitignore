@@ -6,3 +6,6 @@ assets_src/**/baked/
 assets_src/**/preview_*.png
 tools/scratch/
 verify-output/
+public/
+.vercel/
+.env*

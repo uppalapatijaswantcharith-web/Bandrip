@@ -1,0 +1,5 @@
+# Asset pipelines only (not needed to run or deploy the site)
+-r requirements.txt
+numpy>=2.0
+scikit-image>=0.24
+Pillow>=10.0

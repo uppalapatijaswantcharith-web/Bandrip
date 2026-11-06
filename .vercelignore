@@ -1,0 +1,19 @@
+# Source/dev-only material not needed to serve the site
+assets_src/
+tools/
+brand_supplied/
+verify-output/
+staticfiles/
+public/
+node_modules/
+__pycache__/
+*.pyc
+.venv/
+venv/
+ANTI_GENERIC_DESIGN.md
+ART_DIRECTION.md
+ASSET_PLAN.md
+IMPLEMENTATION_PLAN.md
+PAGE_AND_MOTION_PLAN.md
+REFERENCE_ANALYSIS.md
+requirements-assets.txt
