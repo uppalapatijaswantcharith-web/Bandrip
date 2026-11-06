@@ -177,43 +177,65 @@ export async function init({ prefs, smooth, loader }) {
     }
   }
 
-  // --- mascot path: one deterministic keyframe track anchored to (pin-aware) scroll positions.
-  // Registered last so anchors after the pinned chapter include its pin spacing.
+  // --- mascot path: the skull docks into reserved, empty layout slots instead of floating on keyframes.
+  // Each frame reads the slot's on-screen rect and fits the head into it, so it never lands on text:
+  //   hero  -> scrolls up with the hero while gliding into the identity slot (one eased move, a single turn)
+  //   identity slot -> docked beside the headline; it leaves with the chapter like any page element
+  //   values slot (sticky, centre column between the posters) -> rides in with the chapter, rings on
   if (mascot) {
     const m = prefs.mobile;
-    const hero = { x: 0, y: -0.1, z: 0, ry: 0, s: m ? 0.74 : 0.88, rings: 0 };
-    const anchor = (trigger, start) => ScrollTrigger.create({ trigger, start });
-    const K = [
-      { st: null, pose: hero },
-      { st: anchor('.identity', 'top bottom'), pose: hero },
-      { st: anchor('.identity', 'top top'), pose: { x: m ? 0.4 : 1.55, y: m ? 2.6 : 0.3, z: -0.6, ry: -0.65, s: m ? 0.45 : 0.6, rings: 0 }, ease: 'inOut' },
-      { st: anchor('.identity', 'center top'), pose: { x: m ? 0.6 : 1.7, y: m ? 2.6 : 1.9, z: -0.6, ry: -0.95, s: m ? 0.48 : 0.56, rings: 0 } },
-      { st: anchor('.identity', 'bottom top'), pose: { x: m ? 0.7 : 1.8, y: 4.2, z: -0.6, ry: -1.2, s: 0.5, rings: 0 }, hide: true },
-      { st: anchor('.values', 'top bottom'), pose: { x: -3.8, y: -0.3, z: -0.4, ry: 1.0, s: m ? 0.45 : 0.56, rings: 0 }, cut: true, hide: true },
-      { st: anchor('.values', 'top 35%'), pose: { x: m ? -0.4 : -1.35, y: -0.55, z: -0.4, ry: 0.35, s: m ? 0.45 : 0.56, rings: 1 }, ease: 'out' },
-      { st: anchor('.values', 'center center'), pose: { x: m ? 0.4 : 1.3, y: -0.4, z: -0.4, ry: -0.4, s: m ? 0.45 : 0.56, rings: 1 } },
-      { st: anchor('.values', 'bottom top'), pose: { x: 4.0, y: 0.6, z: -0.4, ry: -1.1, s: 0.6, rings: 0 }, ease: 'in', hide: true },
-    ];
-    const eases = { inOut: gsap.parseEase('power2.inOut'), out: gsap.parseEase('power2.out'), in: gsap.parseEase('power2.in'), none: (t) => t };
-    const keys = ['x', 'y', 'z', 'ry', 's', 'rings'];
     const p = mascot.pose;
+    const fit = mascot.fit;
+    const cam = mascot.camera;
+    const idSec = document.querySelector('.identity');
+    const slotId = document.querySelector('[data-mascot-slot="identity"]');
+    const slotVal = document.querySelector('[data-mascot-slot="values"]');
+    const keys = ['x', 'y', 'z', 'ry', 's', 'rings'];
+    const smooth01 = (t) => t * t * (3 - 2 * t);
+    const clamp01 = (v) => Math.max(0, Math.min(1, v));
     let hidden = false;
-    const place = (y) => {
-      let i = 1;
-      while (i < K.length && y >= K[i].st.start) i += 1;
-      const a = K[i - 1];
-      const b = K[i];
-      let out = a.pose;
-      if (b && !b.cut) {
-        const y0 = a.st ? a.st.start : 0;
-        const t = gsap.utils.clamp(0, 1, (y - y0) / Math.max(1, b.st.start - y0));
-        const e = (eases[b.ease] || eases.none)(t);
-        out = {};
-        keys.forEach((k) => { out[k] = a.pose[k] + (b.pose[k] - a.pose[k]) * e; });
+    const viewH = () => 2 * cam.position.z * Math.tan((cam.fov * Math.PI) / 360);
+    // screen rect -> holder pose that fits the visible head (hat to bandana tip) into the rect
+    const dock = (r, extra) => {
+      const H = viewH();
+      const Wd = H * (window.innerWidth / window.innerHeight);
+      const cx = ((r.left + r.width / 2) / window.innerWidth - 0.5) * Wd;
+      const cy = 0.35 + (0.5 - (r.top + r.height / 2) / window.innerHeight) * H;
+      const s = Math.min((r.height / window.innerHeight) * H / fit.h, (r.width / window.innerWidth) * Wd / fit.w);
+      return { x: cx - s * fit.cx, y: cy - s * fit.cy, z: 0, s, ...extra };
+    };
+    const visible = (el) => el && el.offsetParent !== null;
+    const place = () => {
+      const vh = window.innerHeight;
+      const H = viewH();
+      let out = null;
+      // values: sticky slot in the centre column
+      if (visible(slotVal)) {
+        const r = slotVal.getBoundingClientRect();
+        if (r.top < vh && r.bottom > 0) {
+          const e = smooth01(clamp01((vh - r.top) / (vh * 0.55)));
+          out = dock(r, { ry: 0.5 * (1 - e) - 0.12, rings: e });
+          out.s *= 0.82 + 0.18 * e;
+        }
+      }
+      if (!out) {
+        // hero pose rises with the hero (parallax), then eases into the identity slot
+        const hero = { x: 0, y: -0.1 + (window.scrollY / vh) * H * 0.5, z: 0, ry: 0, s: m ? 0.74 : 0.88, rings: 0 };
+        if (visible(slotId) && idSec) {
+          const t = smooth01(clamp01((vh * 0.95 - idSec.getBoundingClientRect().top) / (vh * 0.8)));
+          const d = dock(slotId.getBoundingClientRect(), { ry: m ? 0 : -0.42, rings: 0 });
+          out = {};
+          keys.forEach((k) => { out[k] = hero[k] + (d[k] - hero[k]) * t; });
+          out.y += Math.sin(Math.PI * t) * 0.25;          // a gentle arc, not a straight slide
+          hidden = t >= 1 && slotId.getBoundingClientRect().bottom < -40;
+        } else {
+          out = hero;
+          hidden = window.scrollY > vh * 1.2;
+        }
+      } else {
+        hidden = false;
       }
       keys.forEach((k) => { p[k] = out[k]; });
-      // stop rendering while the mascot is parked off-screen
-      hidden = (a.hide && (!b || b.cut || b.hide));
       gateRender();
     };
     // extra actors share the stage: THE DROP hoodie and the footer skater (loaded after first paint)
@@ -257,10 +279,11 @@ export async function init({ prefs, smooth, loader }) {
       if (skater && skaterOn) skater.setVisible(true);
       ScrollTrigger.refresh();
     });
-    smooth.onScroll((y) => place(y));
-    ScrollTrigger.addEventListener('refresh', () => place(smooth.y));
-    place(smooth.y);
-    window.__bandripDebug = () => ({ y: smooth.y, starts: K.map((k) => (k.st ? Math.round(k.st.start) : 0)), pose: { x: p.x, y: p.y, s: p.s }, hidden });
+    smooth.onScroll(() => place());
+    window.addEventListener('resize', place);
+    ScrollTrigger.addEventListener('refresh', place);
+    place();
+    window.__bandripDebug = () => ({ y: smooth.y, pose: { x: p.x, y: p.y, s: p.s, ry: p.ry }, hidden });
   }
 
   ScrollTrigger.sort();

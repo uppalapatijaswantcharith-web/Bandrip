@@ -7,8 +7,8 @@
     "file": "assets/gsap-aLfjG8Xb.js",
     "name": "gsap"
   },
-  "_mascot-C1TsHr-z.js": {
-    "file": "assets/mascot-C1TsHr-z.js",
+  "_mascot-52c8zcLT.js": {
+    "file": "assets/mascot-52c8zcLT.js",
     "name": "mascot",
     "isDynamicEntry": true,
     "imports": [
@@ -20,7 +20,7 @@
     "name": "three"
   },
   "frontend/core/renderer.js": {
-    "file": "assets/renderer-Dq1faQSU.js",
+    "file": "assets/renderer-B_Jp4h4h.js",
     "name": "renderer",
     "src": "frontend/core/renderer.js",
     "isDynamicEntry": true,
@@ -31,7 +31,7 @@
     ]
   },
   "frontend/main.js": {
-    "file": "assets/main-CZog_C9L.js",
+    "file": "assets/main-BDiKTuFb.js",
     "name": "main",
     "src": "frontend/main.js",
     "isEntry": true,
@@ -45,7 +45,7 @@
       "frontend/pages/simple.js"
     ],
     "css": [
-      "assets/main-BLnGToRO.css"
+      "assets/main-C97tJ8jc.css"
     ],
     "assets": [
       "assets/anton-vietnamese-400-normal-Ophpuo_x.woff2",
@@ -100,7 +100,7 @@
     ]
   },
   "frontend/pages/depot.js": {
-    "file": "assets/depot-i9o4NC3N.js",
+    "file": "assets/depot-LiUYdVZi.js",
     "name": "depot",
     "src": "frontend/pages/depot.js",
     "isDynamicEntry": true,
@@ -114,7 +114,7 @@
     ]
   },
   "frontend/pages/home.js": {
-    "file": "assets/home-DVMNM6UV.js",
+    "file": "assets/home-CH2ntSLI.js",
     "name": "home",
     "src": "frontend/pages/home.js",
     "isDynamicEntry": true,
@@ -124,13 +124,13 @@
     ],
     "dynamicImports": [
       "frontend/core/renderer.js",
-      "_mascot-C1TsHr-z.js",
+      "_mascot-52c8zcLT.js",
       "frontend/scenes/fluid.js",
       "frontend/scenes/extras.js"
     ]
   },
   "frontend/pages/models.js": {
-    "file": "assets/models-Cwk7B70Z.js",
+    "file": "assets/models-D27JNwxC.js",
     "name": "models",
     "src": "frontend/pages/models.js",
     "isDynamicEntry": true,
@@ -155,23 +155,23 @@
     ]
   },
   "frontend/scenes/depot.js": {
-    "file": "assets/depot-Cq3HhNua.js",
+    "file": "assets/depot-DExjOc7m.js",
     "name": "depot",
     "src": "frontend/scenes/depot.js",
     "isDynamicEntry": true,
     "imports": [
       "_three-dQ1cnJTf.js",
-      "_mascot-C1TsHr-z.js"
+      "_mascot-52c8zcLT.js"
     ]
   },
   "frontend/scenes/extras.js": {
-    "file": "assets/extras-CHf_yiNZ.js",
+    "file": "assets/extras-DzrPyw6M.js",
     "name": "extras",
     "src": "frontend/scenes/extras.js",
     "isDynamicEntry": true,
     "imports": [
       "_three-dQ1cnJTf.js",
-      "_mascot-C1TsHr-z.js"
+      "_mascot-52c8zcLT.js"
     ]
   },
   "frontend/scenes/fluid.js": {
@@ -181,13 +181,13 @@
     "isDynamicEntry": true
   },
   "frontend/scenes/runway.js": {
-    "file": "assets/runway-B_Sm5PaR.js",
+    "file": "assets/runway-Br0znIs_.js",
     "name": "runway",
     "src": "frontend/scenes/runway.js",
     "isDynamicEntry": true,
     "imports": [
       "_three-dQ1cnJTf.js",
-      "_mascot-C1TsHr-z.js"
+      "_mascot-52c8zcLT.js"
     ]
   },
   "node_modules/@fontsource/anton/files/anton-latin-400-normal.woff": {

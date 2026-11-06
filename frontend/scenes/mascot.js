@@ -66,6 +66,13 @@ export async function createMascotScene(rt, { onProgress, mobile }) {
   const holder = new THREE.Group();
   holder.add(pivot);
   scene.add(holder);
+  // head-and-bandana emblem like the logo: drop the neck stub, then measure what is left so the page
+  // can dock the mascot into reserved layout slots (centre and height in holder space at scale 1)
+  model.traverse((o) => { if (o.isMesh && (o.material.name || '').startsWith('neck')) o.visible = false; });
+  holder.updateMatrixWorld(true);
+  const fitBox = new THREE.Box3();
+  model.traverse((o) => { if (o.isMesh && o.visible) fitBox.expandByObject(o); });
+  const fit = { cx: (fitBox.min.x + fitBox.max.x) / 2, cy: (fitBox.min.y + fitBox.max.y) / 2, h: fitBox.max.y - fitBox.min.y, w: fitBox.max.x - fitBox.min.x };
 
   // thin orbit rings (DICH "rock" chapter) — hidden until the values chapter
   const ringMat = new THREE.MeshBasicMaterial({ color: 0xf2f0e9, transparent: true, opacity: 0, depthWrite: false });
@@ -113,5 +120,5 @@ export async function createMascotScene(rt, { onProgress, mobile }) {
     renderer.render(scene, camera);
   }
 
-  return { scene, camera, pose, frame, model, renderer, onFrame(fn) { hooks.add(fn); return () => hooks.delete(fn); } };
+  return { scene, camera, pose, frame, model, renderer, fit, onFrame(fn) { hooks.add(fn); return () => hooks.delete(fn); } };
 }

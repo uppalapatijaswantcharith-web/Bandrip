@@ -229,7 +229,7 @@ html.touch .hero__spray-hint, html.reduced-motion .hero__spray-hint { display: n
 .m-img.taped img { box-shadow: 0 14px 30px rgba(21, 21, 21, 0.28); }
 
 /* identity: sprayed tag across the wall */
-.spraytag { position: absolute; left: 4vw; right: 4vw; top: 46vh; height: 300px; z-index: 0; pointer-events: none; opacity: 0.92; overflow: hidden; }
+.spraytag { position: absolute; left: 4vw; right: 36vw; top: 50vh; height: 300px; z-index: 0; pointer-events: none; opacity: 0.92; overflow: hidden; }
 .spraytag canvas { width: 100%; height: 100%; display: block; }
 .spraytag__can { position: absolute; left: 0; top: 0; width: 46px; margin: -10px 0 0 4px; opacity: 0; transition: opacity 0.3s; filter: drop-shadow(0 8px 10px rgba(0,0,0,0.35)); }
 .identity__head, .identity__img, .identity__copy { z-index: 1; }
@@ -261,3 +261,16 @@ html.no-webgl .drop__poster { opacity: 0.9; }
 /* drips from one chapter into the next */
 .drip-edge { position: relative; z-index: 2; height: 0; pointer-events: none; }
 .drip-edge svg { position: absolute; left: 0; top: -1px; width: 100%; display: block; }
+
+/* reserved slots the 3D skull docks into (kept empty so it never covers text) */
+.mascot-slot { pointer-events: none; }
+.mascot-slot--identity { position: absolute; right: 4vw; top: 14vh; width: 30vw; height: 52vh; }
+.identity__copy { top: 74vh; }
+.values { position: relative; }
+.values__dock { position: absolute; left: 38vw; width: 24vw; top: 62vh; bottom: 10vh; pointer-events: none; }
+.mascot-slot--values { position: sticky; top: 24vh; height: 50vh; }
+@media (max-width: 760px) {
+  .mascot-slot--identity { position: relative; right: auto; top: auto; width: 100%; height: 44vh; }
+  .values__dock { display: none; }
+  .spraytag { right: 4vw; }
+}

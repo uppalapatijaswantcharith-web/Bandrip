@@ -1,4 +1,4 @@
-import{M as F,B as U,G as C,D,T as G,S as N,V as _,a as I,b as A,c as $,d as V,P as W,e as E}from"./three-dQ1cnJTf.js";import{l as O}from"./mascot-C1TsHr-z.js";const w=document.querySelector('meta[name="static-root"]')?.content||"/static/",L=`
+import{M as F,B as U,G as C,D,T as G,S as N,V as _,a as I,b as A,c as $,d as V,P as W,e as E}from"./three-dQ1cnJTf.js";import{l as O}from"./mascot-52c8zcLT.js";const w=document.querySelector('meta[name="static-root"]')?.content||"/static/",L=`
   float bh(vec3 p) { return fract(sin(dot(p, vec3(12.9898, 78.233, 37.719))) * 43758.5453); }
   float bn(vec3 p) {
     vec3 i = floor(p); vec3 f = fract(p); f = f * f * (3.0 - 2.0 * f);
