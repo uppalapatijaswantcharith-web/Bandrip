@@ -30,7 +30,7 @@
 
 <div class="galleries" data-galleries>
   {% for cat in categories %}
-  <section class="gallery" id="cat-{{ cat.slug }}" data-gallery="{{ cat.slug }}" data-num="{{ cat.num }}" data-name="{{ cat.name }}" style="--g-field: {{ cat.field }}; --g-ink: {{ cat.ink }};" aria-labelledby="g-title-{{ cat.slug }}"{% if not active or active.slug != cat.slug %} hidden{% endif %}>
+  <section class="gallery" data-lenis-prevent id="cat-{{ cat.slug }}" data-gallery="{{ cat.slug }}" data-num="{{ cat.num }}" data-name="{{ cat.name }}" style="--g-field: {{ cat.field }}; --g-ink: {{ cat.ink }};" aria-labelledby="g-title-{{ cat.slug }}"{% if not active or active.slug != cat.slug %} hidden{% endif %}>
     <div class="gallery__bar">
       <a class="gallery__back mono" href="{% url 'collections' %}" data-local data-back>← BACK TO DEPOT</a>
       <span class="mono">{{ cat.num }} / 07</span>

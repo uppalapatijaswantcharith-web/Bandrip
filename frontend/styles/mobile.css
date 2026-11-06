@@ -1,0 +1,35 @@
+/* Phone layer, loaded last. frame.js draws a solid 54px top band at the same breakpoint. */
+
+@media (max-width: 760px) {
+  /* HUD: brand, section label and menu sit inside the dark top band */
+  .frame__bar { top: calc(var(--bezel) + 1px); left: calc(var(--bezel) + 4px); right: var(--bezel); height: 44px; }
+  .frame__brand, .frame__menu { color: var(--chalk); min-height: 44px; }
+  .frame__brand { padding-right: 6px; }
+  .frame__menu { min-width: 56px; justify-content: center; padding: 0 10px; }
+  .frame__pulse { background: var(--chalk); }
+  .frame__pulse i { background: var(--ink); }
+  .frame__tab--top { top: calc(var(--bezel) + 13px); }
+  .frame__tab .mono { font-size: 10px; }
+
+  /* readable small print */
+  .mono { font-size: 11px; }
+
+  /* 16px fields stop iOS Safari zooming the page on focus */
+  .field input:not([type="checkbox"]), .field select, .field textarea { font-size: 16px; }
+  .field--check input { width: 24px; height: 24px; }
+
+  /* 44px touch targets */
+  .runway__controls button, .portfolio__filters button { min-height: 44px; padding: 0 12px; }
+  .depot__list a { min-height: 44px; align-items: center; }
+  .gallery__back { display: inline-flex; align-items: center; min-height: 44px; }
+  .gallery__next { gap: 0 18px; }
+  .gallery__next a { display: inline-flex; align-items: center; min-height: 44px; }
+
+  /* home hero: the side captions sat on the skull's eyes, and the spray hint is mouse-only.
+     "Walk the runway" is repeated in the runway chapter further down. */
+  .hero__micro { display: none; }
+}
+
+/* bigger hit area for inline text links on touch screens, without moving the layout */
+html.touch .u-link { position: relative; }
+html.touch .u-link::after { content: ''; position: absolute; inset: -14px -6px; }

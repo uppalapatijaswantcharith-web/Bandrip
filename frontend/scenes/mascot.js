@@ -6,7 +6,12 @@ import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment
 
 const STATIC = document.querySelector('meta[name="static-root"]')?.content || '/static/';
 
+// Phones load copies with textures capped at 1024px (tools/mobile_glb.py): the renderer caps DPR at 1.25 there.
+const MOBILE_GLB = /\/models\/(mascot|crew)\.glb$/;
+const phone = window.matchMedia('(max-width: 760px)').matches;
+
 export function loadGLB(url, onProgress) {
+  if (phone && MOBILE_GLB.test(url)) url = url.replace(/\.glb$/, '-m.glb');
   const draco = new DRACOLoader();
   draco.setDecoderPath(`${STATIC}draco/`);
   const loader = new GLTFLoader();

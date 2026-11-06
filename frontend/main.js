@@ -4,6 +4,7 @@ import './styles/home.css';
 import './styles/depot.css';
 import './styles/models.css';
 import './styles/pages.css';
+import './styles/mobile.css';
 
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
