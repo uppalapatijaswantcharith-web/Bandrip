@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "verify": "node tools/verify.mjs"
+    "verify": "node tools/verify.mjs",
+    "build:vercel": "vite build && node scripts/prepare-vercel-static.mjs"
   },
   "dependencies": {
     "@fontsource/anton": "^5.1.0",

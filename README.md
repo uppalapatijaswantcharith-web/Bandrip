@@ -10,6 +10,7 @@ Requirements: Python 3.11+, Node 20+.
 
 ```bash
 pip install -r requirements.txt   # Django is the only runtime dependency
+                                  # (requirements-assets.txt adds the asset-pipeline tools)
 npm install
 npm run build                     # bundles frontend/ into static/dist
 python manage.py runserver        # http://127.0.0.1:8000
@@ -20,6 +21,29 @@ Live-reload development: run `npm run dev` in one terminal and `VITE_DEV=1 pytho
 Useful URL flags: `?nogate` skips the intro gate, `?nowebgl` forces the no-3D fallback. The gate shows once per browser session; close the tab or clear session storage to see it again.
 
 Verification (server must be running): `npm run verify` writes screenshots and `verify-output/verify-report.json`.
+
+## Deploy to Vercel (custom .store domain)
+
+The repo is ready for Vercel as-is:
+
+- `api/index.py` runs Django as a single Python serverless function.
+- `vercel.json` runs `npm run build:vercel` (Vite build, then `static/` is copied to `public/static`), so images, 3D models and the JS bundle are served from Vercel's CDN; every other path is rewritten to Django.
+- `.vercelignore` keeps the 340 MB `assets_src/`, `tools/` and planning docs out of the upload.
+- On Vercel, `DEBUG` is off by default, `*.vercel.app` plus the project's production domain are allowed hosts, and HTTPS is detected through `X-Forwarded-Proto` (needed for the CSRF check on the forms).
+
+Steps:
+
+1. Push this folder to a GitHub repo (or run `npx vercel` from this folder) and import it in Vercel. Leave Framework Preset as **Other**; `vercel.json` sets the build.
+2. Project → Settings → Environment Variables (Production):
+   - `DJANGO_SECRET_KEY` = output of `python3 -c "from django.core.management.utils import get_random_secret_key as k; print(k())"`
+   - `DJANGO_ALLOWED_HOSTS` = `yourname.store,www.yourname.store`
+3. Project → Settings → Domains → add `yourname.store` (and `www.yourname.store`, set to redirect to the apex).
+4. At your .store registrar's DNS settings, add the records Vercel shows, typically:
+   - `A` record, host `@`, value `76.76.21.21`
+   - `CNAME` record, host `www`, value `cname.vercel-dns.com`
+
+   (Or switch the domain's nameservers to `ns1.vercel-dns.com` / `ns2.vercel-dns.com`.) Vercel issues the HTTPS certificate automatically once DNS resolves.
+5. Redeploy after changing environment variables.
 
 ## Pages
 

@@ -10,14 +10,52 @@ from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# Vercel sets VERCEL=1 in its build and runtime environments.
+ON_VERCEL = os.environ.get('VERCEL') == '1'
+
 SECRET_KEY = os.environ.get(
     'DJANGO_SECRET_KEY',
     'prototype-only-insecure-key-change-before-any-deployment',
 )
 
-DEBUG = os.environ.get('DJANGO_DEBUG', '1') == '1'
+# Off by default on Vercel, on by default locally. Override with DJANGO_DEBUG=0/1.
+DEBUG = os.environ.get('DJANGO_DEBUG', '0' if ON_VERCEL else '1') == '1'
 
-ALLOWED_HOSTS = os.environ.get('DJANGO_ALLOWED_HOSTS', 'localhost,127.0.0.1').split(',')
+
+def _env_list(name, default=''):
+    return [v.strip() for v in os.environ.get(name, default).split(',') if v.strip()]
+
+
+# Add your domain via DJANGO_ALLOWED_HOSTS, e.g. "bandrip.store,www.bandrip.store".
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', *_env_list('DJANGO_ALLOWED_HOSTS')]
+if ON_VERCEL:
+    ALLOWED_HOSTS.append('.vercel.app')
+    # Production domain (custom domain if one is attached) and deployment URLs.
+    for var in ('VERCEL_PROJECT_PRODUCTION_URL', 'VERCEL_URL', 'VERCEL_BRANCH_URL'):
+        if os.environ.get(var):
+            ALLOWED_HOSTS.append(os.environ[var])
+ALLOWED_HOSTS = list(dict.fromkeys(ALLOWED_HOSTS))
+
+CSRF_TRUSTED_ORIGINS = [
+    f"https://*{h}" if h.startswith('.') else f"https://{h}"
+    for h in ALLOWED_HOSTS
+    if h not in ('localhost', '127.0.0.1')
+]
+
+if ON_VERCEL:
+    # Vercel terminates TLS and forwards the original scheme in X-Forwarded-Proto.
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+    CSRF_COOKIE_SECURE = True
+    SESSION_COOKIE_SECURE = True
+    SECURE_REFERRER_POLICY = 'strict-origin-when-cross-origin'
+
+# Send errors to stdout/stderr so they show up in Vercel's function logs.
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {'console': {'class': 'logging.StreamHandler'}},
+    'root': {'handlers': ['console'], 'level': 'WARNING'},
+}
 
 INSTALLED_APPS = [
     'django.contrib.staticfiles',
