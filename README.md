@@ -16,7 +16,7 @@ npm run build                     # bundles frontend/ into static/dist
 python manage.py runserver        # http://127.0.0.1:8000
 ```
 
-Live-reload development: run `npm run dev` in one terminal and `VITE_DEV=1 python manage.py runserver` in another (PowerShell: `$env:VITE_DEV=1; python manage.py runserver`).
+Live-reload development: run `npm run dev` in one or terminal and `VITE_DEV=1 python manage.py runserver` in another (PowerShell: `$env:VITE_DEV=1; python manage.py runserver`).
 
 Useful URL flags: `?nogate` skips the intro gate, `?nowebgl` forces the no-3D fallback. The gate shows once per browser session; close the tab or clear session storage to see it again.
 
