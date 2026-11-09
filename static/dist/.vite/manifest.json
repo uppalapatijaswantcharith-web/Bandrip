@@ -20,7 +20,7 @@
     "name": "three"
   },
   "frontend/core/renderer.js": {
-    "file": "assets/renderer-DHXZXZce.js",
+    "file": "assets/renderer-Ds2BBiJq.js",
     "name": "renderer",
     "src": "frontend/core/renderer.js",
     "isDynamicEntry": true,
@@ -31,7 +31,7 @@
     ]
   },
   "frontend/main.js": {
-    "file": "assets/main-DgUyv0fV.js",
+    "file": "assets/main-B4D3uJsS.js",
     "name": "main",
     "src": "frontend/main.js",
     "isEntry": true,
@@ -45,7 +45,7 @@
       "frontend/pages/simple.js"
     ],
     "css": [
-      "assets/main-_oLVT4vL.css"
+      "assets/main-qqc1CsmN.css"
     ],
     "assets": [
       "assets/anton-vietnamese-400-normal-Ophpuo_x.woff2",
@@ -100,7 +100,7 @@
     ]
   },
   "frontend/pages/depot.js": {
-    "file": "assets/depot-DcoHIWPd.js",
+    "file": "assets/depot-CaNXv_Aw.js",
     "name": "depot",
     "src": "frontend/pages/depot.js",
     "isDynamicEntry": true,
@@ -114,7 +114,7 @@
     ]
   },
   "frontend/pages/home.js": {
-    "file": "assets/home-r1SnUu8y.js",
+    "file": "assets/home-CPIRUJT4.js",
     "name": "home",
     "src": "frontend/pages/home.js",
     "isDynamicEntry": true,
@@ -130,7 +130,7 @@
     ]
   },
   "frontend/pages/models.js": {
-    "file": "assets/models-D3QvgmnW.js",
+    "file": "assets/models-DXVjzs4u.js",
     "name": "models",
     "src": "frontend/pages/models.js",
     "isDynamicEntry": true,

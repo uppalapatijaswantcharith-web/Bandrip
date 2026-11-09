@@ -5,6 +5,7 @@
   .frame__bar { top: calc(var(--bezel) + 1px); left: calc(var(--bezel) + 4px); right: var(--bezel); height: 44px; }
   .frame__brand, .frame__menu { color: var(--chalk); min-height: 44px; }
   .frame__brand { padding-right: 6px; }
+  .wordmark-logo { height: 24px; }
   .frame__menu { min-width: 56px; justify-content: center; padding: 0 10px; }
   .frame__pulse { background: var(--chalk); }
   .frame__pulse i { background: var(--ink); }
